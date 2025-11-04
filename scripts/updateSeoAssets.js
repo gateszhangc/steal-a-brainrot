@@ -32,9 +32,20 @@ async function downloadAsset(target) {
   }
 
   const rawContent = await response.text();
-  const content = target.replaceDomain
+  let content = target.replaceDomain
     ? rawContent.replaceAll(REMOTE_ORIGIN, CLONE_ORIGIN)
     : rawContent;
+
+  if (target.fileName === "robots.txt") {
+    const sitemapLine = `Sitemap: ${CLONE_ORIGIN}/sitemap.xml`;
+    if (content.includes("Sitemap:")) {
+      content = content.replace(/Sitemap:[^\r\n]*/gi, sitemapLine);
+    } else {
+      const trimmed = content.trimEnd();
+      const newline = trimmed.endsWith("\n") ? "" : "\n";
+      content = `${trimmed}${newline}${sitemapLine}\n`;
+    }
+  }
   const outputPath = path.join(publicDir, target.fileName);
   await fs.writeFile(outputPath, content, "utf8");
   return outputPath;
