@@ -26,6 +26,11 @@ This document explains how the project replicates the `https://steal-brainrot.io
    node scripts/updateOriginalHtml.js
    ```
    This writes the combined markup to `public/original.html`.
+4. Refresh SEO assets (robots.txt, sitemap.xml):
+   ```bash
+   node scripts/updateSeoAssets.js
+   ```
+   The latest versions are saved to `public/robots.txt` and `public/sitemap.xml`.
 
 ## 3. Next.js Rendering Notes
 - `app/layout.tsx` reads `data/home-head.html` at runtime and injects the markup into `<head>`.

@@ -34,7 +34,8 @@ if (bodyStartTag === -1 || bodyOpen === -1) {
 const bodyCloseCandidate = lower.lastIndexOf("</body>");
 const bodyEnd = bodyCloseCandidate !== -1 ? bodyCloseCandidate : html.length;
 
-const ABSOLUTE_ORIGIN = "https://steal-brainrot.io";
+const REMOTE_ORIGIN = "https://steal-brainrot.io";
+const CLONE_ORIGIN = (process.env.CLONE_ORIGIN ?? "https://www.stealabrainrot.quest").replace(/\/$/, "");
 
 const rewriteRootRelative = (fragment) =>
   fragment
@@ -42,22 +43,53 @@ const rewriteRootRelative = (fragment) =>
       /\b(href|src|data-src|data-href|data-url|data-image|data-bg|data-background|content)=["']\/(?!\/)([^"'?#]+(?:[?#][^"']*)?)["']/gi,
       (_match, attr, rest) => {
       const normalized = rest.replace(/^\/+/, "");
-      return `${attr}="${ABSOLUTE_ORIGIN}/${normalized}"`;
+      return `${attr}="${REMOTE_ORIGIN}/${normalized}"`;
       }
     )
     .replace(/url\((['"]?)\/(?!\/)([^)'"]+)\1\)/gi, (_match, quote, rest) => {
       const normalized = rest.replace(/^\/+/, "");
-      return `url(${quote}${ABSOLUTE_ORIGIN}/${normalized}${quote})`;
+      return `url(${quote}${REMOTE_ORIGIN}/${normalized}${quote})`;
     });
+
+const escapeRegExp = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+const updateSeoLinks = (fragment) => {
+  const remote = escapeRegExp(REMOTE_ORIGIN);
+  let next = fragment;
+
+  const replacements = [
+    {
+      regex: new RegExp(`(<link\\s[^>]*rel=["']canonical["'][^>]*href=["'])${remote}`, "gi")
+    },
+    {
+      regex: new RegExp(`(<meta\\s[^>]*property=["']og:url["'][^>]*content=["'])${remote}`, "gi")
+    },
+    {
+      regex: new RegExp(`(<meta\\s[^>]*name=["']twitter:url["'][^>]*content=["'])${remote}`, "gi")
+    }
+  ];
+
+  for (const { regex } of replacements) {
+    next = next.replace(regex, `$1${CLONE_ORIGIN}`);
+  }
+
+  next = next.replace(
+    new RegExp(`(domain_url\\s*=\\s*['"])${remote}`, "g"),
+    `$1${CLONE_ORIGIN}`
+  );
+
+  return next;
+};
 
 const headHtml = rewriteRootRelative(
   html.slice(headStart + "<head>".length, headEnd)
 );
+const seoHeadHtml = updateSeoLinks(headHtml);
 const bodyHtml = rewriteRootRelative(html.slice(bodyOpen + 1, bodyEnd));
 
-fs.writeFileSync(path.join(projectRoot, "data", "home-head.html"), headHtml, "utf8");
+fs.writeFileSync(path.join(projectRoot, "data", "home-head.html"), seoHeadHtml, "utf8");
 fs.writeFileSync(path.join(projectRoot, "data", "home-body.html"), bodyHtml, "utf8");
 
 console.log(
-  `Extracted head (${headHtml.length} chars) and body (${bodyHtml.length} chars) fragments to data/home-head.html and data/home-body.html.`
+  `Extracted head (${seoHeadHtml.length} chars) and body (${bodyHtml.length} chars) fragments to data/home-head.html and data/home-body.html.`
 );

@@ -12,6 +12,7 @@
     "compare:screenshots": "node scripts/compareScreenshots.js",
     "analyze:diff": "node scripts/analyzeRawDiff.js",
     "update:original": "node scripts/updateOriginalHtml.js",
+    "update:seo": "node scripts/updateSeoAssets.js",
     "extract:html": "node scripts/extractHtml.js"
   },
   "dependencies": {
