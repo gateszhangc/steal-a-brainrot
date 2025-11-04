@@ -10,6 +10,12 @@ build
 
 # misc
 .DS_Store
+Thumbs.db
+*.swp
+.vscode/
+.idea/
+.history/
+.cache/
 *.log
 *.tmp
 npm-debug.log*
@@ -20,3 +26,10 @@ pnpm-debug.log*
 # playwright
 playwright-report
 screenshots/*.png
+
+# env
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
