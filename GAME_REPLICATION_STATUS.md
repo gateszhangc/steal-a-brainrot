@@ -21,8 +21,8 @@
 | 6 | Mr Flips | `/mr-flips` | ✅ 已完成 | 已有页面和数据文件 |
 | 7 | Growden.io | `/growdenio` | ✅ 已完成 | 已有页面和数据文件 |
 | 8 | Ragdoll Playground | `/ragdoll-playground` | ✅ 已完成 | 已有页面和数据文件 |
-| 9 | 67 Clicker | `/67-clicker` | ❌ 未完成 | |
-| 10 | Steal A Brainrot Unblocked | `/steal-a-brainrot-unblocked` | ❌ 未完成 | |
+| 9 | 67 Clicker | `/67-clicker` | ✅ 已完成 | 已有页面和数据文件 |
+| 10 | Steal A Brainrot Unblocked | `/steal-a-brainrot-unblocked` | ✅ 已完成 | 已有页面和数据文件 |
 | 11 | Slope Rider | `/slope-rider` | ❌ 未完成 | |
 | 12 | Stumble Guys | `/stumble-guys` | ❌ 未完成 | |
 | 13 | Merge Rot | `/merge-rot` | ❌ 未完成 | |
@@ -52,8 +52,8 @@
 
 ## 复刻进度统计
 - 总计：31个游戏
-- 已完成：8个 (25.8%)
-- 未完成：23个 (74.2%)
+- 已完成：10个 (32.3%)
+- 未完成：21个 (67.7%)
 
 ## 复刻流程（参考REPLICATION.md）
 
