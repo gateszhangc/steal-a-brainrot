@@ -14,7 +14,7 @@
 | # | 游戏名称 | URL Slug | 状态 | 备注 |
 |---|---------|----------|------|------|
 | 1 | Steal Brainrot Online | `/steal-brainrot-online` | ✅ 已完成 | 已有页面和数据文件 |
-| 2 | Xlope | `/xlope` | ❌ 未完成 | |
+| 2 | Xlope | `/xlope` | ✅ 已完成 | 已有页面和数据文件 |
 | 3 | Los Bros in Steal a Brainrot | `/los-bros-in-steal-a-brainrot` | ✅ 已完成 | 已有页面和数据文件 |
 | 4 | Plants vs Brainrots | `/plants-vs-brainrots` | ❌ 未完成 | |
 | 5 | 2v2.io | `/2v2io` | ❌ 未完成 | |
@@ -52,8 +52,8 @@
 
 ## 复刻进度统计
 - 总计：31个游戏
-- 已完成：1个 (3.2%)
-- 未完成：30个 (96.8%)
+- 已完成：2个 (6.5%)
+- 未完成：29个 (93.5%)
 
 ## 复刻流程（参考REPLICATION.md）
 
