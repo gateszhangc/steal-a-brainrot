@@ -2,21 +2,18 @@ import fs from "node:fs";
 import path from "node:path";
 
 const headHtml = fs.readFileSync(
-  path.join(process.cwd(), "steal-brainrot_growdenio.html"),
+  path.join(process.cwd(), "data", "growdenio-head.html"),
   "utf8"
 );
 
-export default function GameLayout({
+export default function GrowdenioLayout({
   children
 }: {
   children: React.ReactNode;
 }) {
-  const headMatch = headHtml.match(/<head>(.*?)<\/head>/s);
-  const headContent = headMatch ? headMatch[1] : "";
-  
   return (
     <>
-      <div dangerouslySetInnerHTML={{ __html: headContent }} />
+      <div dangerouslySetInnerHTML={{ __html: headHtml }} />
       {children}
     </>
   );
