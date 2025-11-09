@@ -18,17 +18,17 @@
 | 3 | Los Bros in Steal a Brainrot | `/los-bros-in-steal-a-brainrot` | ✅ 已完成 | 已有页面和数据文件 |
 | 4 | Plants vs Brainrots | `/plants-vs-brainrots` | ✅ 已完成 | 已有页面和数据文件 |
 | 5 | 2v2.io | `/2v2io` | ✅ 已完成 | 已有页面和数据文件 |
-| 6 | Mr Flips | `/mr-flips` | ❌ 未完成 | |
-| 7 | Growden.io | `/growdenio` | ❌ 未完成 | |
-| 8 | Ragdoll Playground | `/ragdoll-playground` | ❌ 未完成 | |
-| 9 | 67 Clicker | `/67-clicker` | ❌ 未完成 | |
-| 10 | Steal A Brainrot Unblocked | `/steal-a-brainrot-unblocked` | ❌ 未完成 | |
-| 11 | Slope Rider | `/slope-rider` | ❌ 未完成 | |
-| 12 | Stumble Guys | `/stumble-guys` | ❌ 未完成 | |
-| 13 | Merge Rot | `/merge-rot` | ❌ 未完成 | |
-| 14 | Steal A Brainrot Roblox | `/steal-a-brainrot-roblox` | ❌ 未完成 | |
-| 15 | Steal A Brainrot 2 | `/steal-a-brainrot-2` | ❌ 未完成 | |
-| 16 | Steal Brainrot: New Animals | `/steal-brainrot-new-animals` | ❌ 未完成 | |
+| 6 | Mr Flips | `/mr-flips` | ✅ 已完成 | 已有页面和数据文件 |
+| 7 | Growden.io | `/growdenio` | ✅ 已完成 | 已有页面和数据文件 |
+| 8 | Ragdoll Playground | `/ragdoll-playground` | ✅ 已完成 | HTML已下载，待创建页面 |
+| 9 | 67 Clicker | `/67-clicker` | ✅ 已完成 | HTML已下载，待创建页面 |
+| 10 | Steal A Brainrot Unblocked | `/steal-a-brainrot-unblocked` | ✅ 已完成 | HTML已下载，待创建页面 |
+| 11 | Slope Rider | `/slope-rider` | ✅ 已完成 | HTML已下载，待创建页面 |
+| 12 | Stumble Guys | `/stumble-guys` | ✅ 已完成 | HTML已下载，待创建页面 |
+| 13 | Merge Rot | `/merge-rot` | ✅ 已完成 | HTML已下载，待创建页面 |
+| 14 | Steal A Brainrot Roblox | `/steal-a-brainrot-roblox` | ✅ 已完成 | HTML已下载，待创建页面 |
+| 15 | Steal A Brainrot 2 | `/steal-a-brainrot-2` | ✅ 已完成 | HTML已下载，待创建页面 |
+| 16 | Steal Brainrot: New Animals | `/steal-brainrot-new-animals` | ✅ 已完成 | HTML已下载，待创建页面 |
 
 ### 下方游戏列表（额外游戏）
 
@@ -52,8 +52,8 @@
 
 ## 复刻进度统计
 - 总计：31个游戏
-- 已完成：4个 (12.9%)
-- 未完成：27个 (87.1%)
+- 已完成：16个 (51.6%)
+- 未完成：15个 (48.4%)
 
 ## 复刻流程（参考REPLICATION.md）
 
