@@ -17,7 +17,7 @@
 | 2 | Xlope | `/xlope` | ✅ 已完成 | 已有页面和数据文件 |
 | 3 | Los Bros in Steal a Brainrot | `/los-bros-in-steal-a-brainrot` | ✅ 已完成 | 已有页面和数据文件 |
 | 4 | Plants vs Brainrots | `/plants-vs-brainrots` | ✅ 已完成 | 已有页面和数据文件 |
-| 5 | 2v2.io | `/2v2io` | ❌ 未完成 | |
+| 5 | 2v2.io | `/2v2io` | ✅ 已完成 | 已有页面和数据文件 |
 | 6 | Mr Flips | `/mr-flips` | ❌ 未完成 | |
 | 7 | Growden.io | `/growdenio` | ❌ 未完成 | |
 | 8 | Ragdoll Playground | `/ragdoll-playground` | ❌ 未完成 | |
@@ -52,8 +52,8 @@
 
 ## 复刻进度统计
 - 总计：31个游戏
-- 已完成：3个 (9.7%)
-- 未完成：28个 (90.3%)
+- 已完成：4个 (12.9%)
+- 未完成：27个 (87.1%)
 
 ## 复刻流程（参考REPLICATION.md）
 
