@@ -15,7 +15,7 @@
 |---|---------|----------|------|------|
 | 1 | Steal Brainrot Online | `/steal-brainrot-online` | ✅ 已完成 | 已有页面和数据文件 |
 | 2 | Xlope | `/xlope` | ❌ 未完成 | |
-| 3 | Los Bros in Steal a Brainrot | `/los-bros-in-steal-a-brainrot` | ❌ 未完成 | |
+| 3 | Los Bros in Steal a Brainrot | `/los-bros-in-steal-a-brainrot` | ✅ 已完成 | 已有页面和数据文件 |
 | 4 | Plants vs Brainrots | `/plants-vs-brainrots` | ❌ 未完成 | |
 | 5 | 2v2.io | `/2v2io` | ❌ 未完成 | |
 | 6 | Mr Flips | `/mr-flips` | ❌ 未完成 | |
