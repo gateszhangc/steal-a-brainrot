@@ -28,14 +28,14 @@
 | 13 | Merge Rot | `/merge-rot` | ✅ 已完成 | 已有页面和数据文件 |
 | 14 | Steal A Brainrot Roblox | `/steal-a-brainrot-roblox` | ✅ 已完成 | 已有页面和数据文件 |
 | 15 | Steal A Brainrot 2 | `/steal-a-brainrot-2` | ✅ 已完成 | 已有页面和数据文件 |
-| 16 | Steal Brainrot: New Animals | `/steal-brainrot-new-animals` | ❌ 未完成 | |
+| 16 | Steal Brainrot: New Animals | `/steal-brainrot-new-animals` | ✅ 已完成 | 已有页面和数据文件 |
 
 ### 下方游戏列表（额外游戏）
 
 | # | 游戏名称 | URL Slug | 状态 | 备注 |
 |---|---------|----------|------|------|
-| 17 | Guest 666 Steal a Brainrot | `/guest-666-steal-a-brainrot` | ❌ 未完成 | |
-| 18 | Obby: Grow a Garden | `/obby-grow-a-garden` | ❌ 未完成 | |
+| 17 | Guest 666 Steal a Brainrot | `/guest-666-steal-a-brainrot` | ✅ 已完成 | 已有页面和数据文件 |
+| 18 | Obby: Grow a Garden | `/obby-grow-a-garden` | ✅ 已完成 | 已有页面和数据文件 |
 | 19 | The New Steal Brainrot Super Clicker | `/the-new-steal-brainrot-super-clicker` | ❌ 未完成 | |
 | 20 | Escape Drive | `/escape-drive` | ❌ 未完成 | |
 | 21 | Speed per Click: Obby | `/speed-per-click-obby` | ❌ 未完成 | |
@@ -52,8 +52,8 @@
 
 ## 复刻进度统计
 - 总计：31个游戏
-- 已完成：15个 (48.4%)
-- 未完成：16个 (51.6%)
+- 已完成：18个 (58.1%)
+- 未完成：13个 (41.9%)
 
 ## 复刻流程（参考REPLICATION.md）
 
