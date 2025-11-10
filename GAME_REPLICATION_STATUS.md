@@ -40,11 +40,11 @@
 | 20 | Escape Drive | `/escape-drive` | ✅ 已完成 | 已有页面和数据文件 |
 | 21 | Speed per Click: Obby | `/speed-per-click-obby` | ✅ 已完成 | 已有页面和数据文件 |
 | 22 | La Casa Boo Steal a Brainrot | `/la-casa-boo-steal-a-brainrot` | ✅ 已完成 | 已有页面和数据文件 |
-| 23 | Mad Racers | `/mad-racers` | ❌ 未完成 | |
-| 24 | Trade Or Grow A Brainrot | `/trade-or-grow-a-brainrot` | ❌ 未完成 | |
-| 25 | Steal a Brainrot: 99 Nights In The Forest | `/steal-a-brainrot-99-nights-in-the-forest` | ❌ 未完成 | |
-| 26 | Steal It All | `/steal-it-all` | ❌ 未完成 | |
-| 27 | Geometry Dash | `/geometry-dash` | ❌ 未完成 | |
+| 23 | Mad Racers | `/mad-racers` | ✅ 已完成 | 已有页面和数据文件 |
+| 24 | Trade Or Grow A Brainrot | `/trade-or-grow-a-brainrot` | ✅ 已完成 | 已有页面和数据文件 |
+| 25 | Steal a Brainrot: 99 Nights In The Forest | `/steal-a-brainrot-99-nights-in-the-forest` | ✅ 已完成 | 已有页面和数据文件 |
+| 26 | Steal It All | `/steal-it-all` | ✅ 已完成 | 已有页面和数据文件 |
+| 27 | Geometry Dash | `/geometry-dash` | ✅ 已完成 | 已有页面和数据文件 |
 | 28 | Halloween Base Steal a Brainrot | `/halloween-base-steal-a-brainrot` | ❌ 未完成 | |
 | 29 | Lucky Block Steal a Brainrot | `/lucky-block-steal-a-brainrot` | ❌ 未完成 | |
 | 30 | Steal Brainrots | `/steal-brainrots` | ❌ 未完成 | |
@@ -52,8 +52,8 @@
 
 ## 复刻进度统计
 - 总计：31个游戏
-- 已完成：22个 (71.0%)
-- 未完成：9个 (29.0%)
+- 已完成：27个 (87.1%)
+- 未完成：4个 (12.9%)
 
 ## 复刻流程（参考REPLICATION.md）
 
