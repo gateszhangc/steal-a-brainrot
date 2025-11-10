@@ -23,7 +23,7 @@
 | 8 | Ragdoll Playground | `/ragdoll-playground` | ✅ 已完成 | 已有页面和数据文件 |
 | 9 | 67 Clicker | `/67-clicker` | ✅ 已完成 | 已有页面和数据文件 |
 | 10 | Steal A Brainrot Unblocked | `/steal-a-brainrot-unblocked` | ✅ 已完成 | 已有页面和数据文件 |
-| 11 | Slope Rider | `/slope-rider` | ❌ 未完成 | |
+| 11 | Slope Rider | `/slope-rider` | ✅ 已完成 | 已有页面和数据文件 |
 | 12 | Stumble Guys | `/stumble-guys` | ❌ 未完成 | |
 | 13 | Merge Rot | `/merge-rot` | ❌ 未完成 | |
 | 14 | Steal A Brainrot Roblox | `/steal-a-brainrot-roblox` | ❌ 未完成 | |
@@ -52,8 +52,8 @@
 
 ## 复刻进度统计
 - 总计：31个游戏
-- 已完成：10个 (32.3%)
-- 未完成：21个 (67.7%)
+- 已完成：11个 (35.5%)
+- 未完成：20个 (64.5%)
 
 ## 复刻流程（参考REPLICATION.md）
 
