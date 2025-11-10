@@ -37,9 +37,9 @@
 | 17 | Guest 666 Steal a Brainrot | `/guest-666-steal-a-brainrot` | ✅ 已完成 | 已有页面和数据文件 |
 | 18 | Obby: Grow a Garden | `/obby-grow-a-garden` | ✅ 已完成 | 已有页面和数据文件 |
 | 19 | The New Steal Brainrot Super Clicker | `/the-new-steal-brainrot-super-clicker` | ✅ 已完成 | 已有页面和数据文件 |
-| 20 | Escape Drive | `/escape-drive` | ❌ 未完成 | |
-| 21 | Speed per Click: Obby | `/speed-per-click-obby` | ❌ 未完成 | |
-| 22 | La Casa Boo Steal a Brainrot | `/la-casa-boo-steal-a-brainrot` | ❌ 未完成 | |
+| 20 | Escape Drive | `/escape-drive` | ✅ 已完成 | 已有页面和数据文件 |
+| 21 | Speed per Click: Obby | `/speed-per-click-obby` | ✅ 已完成 | 已有页面和数据文件 |
+| 22 | La Casa Boo Steal a Brainrot | `/la-casa-boo-steal-a-brainrot` | ✅ 已完成 | 已有页面和数据文件 |
 | 23 | Mad Racers | `/mad-racers` | ❌ 未完成 | |
 | 24 | Trade Or Grow A Brainrot | `/trade-or-grow-a-brainrot` | ❌ 未完成 | |
 | 25 | Steal a Brainrot: 99 Nights In The Forest | `/steal-a-brainrot-99-nights-in-the-forest` | ❌ 未完成 | |
@@ -52,8 +52,8 @@
 
 ## 复刻进度统计
 - 总计：31个游戏
-- 已完成：19个 (61.3%)
-- 未完成：12个 (38.7%)
+- 已完成：22个 (71.0%)
+- 未完成：9个 (29.0%)
 
 ## 复刻流程（参考REPLICATION.md）
 
