@@ -20,7 +20,7 @@
 | 3 | Brainrot Alphabet Lore: Musical Merge | `/brainrot-alphabet-lore-musical-merge` | ❌ 未完成 | 需要复刻 |
 | 4 | Cowboy Safari | `/cowboy-safari` | ❌ 未完成 | 需要复刻 |
 | 5 | 1x1x1x1 Steal a Brainrot | `/1x1x1x1-steal-a-brainrot` | ❌ 未完成 | 需要复刻 |
-| 6 | Grow or Trade 99 Nights & FNAF | `/grow-or-trade-99-nights-fnaf` | ❌ 未完成 | 需要复刻 |
+| 6 | Grow or Trade 99 Nights & FNAF | `/grow-or-trade-99-nights-amp-fnaf` | ❌ 未完成 | 需要复刻 |
 | 7 | Guest 666 Steal a Brainrot | `/guest-666-steal-a-brainrot` | ✅ 已完成 | 已有页面和数据文件 |
 | 8 | Obby: Grow a Garden | `/obby-grow-a-garden` | ✅ 已完成 | 已有页面和数据文件 |
 
@@ -102,4 +102,4 @@
 3. Brainrot Alphabet Lore: Musical Merge (`/brainrot-alphabet-lore-musical-merge`)
 4. Cowboy Safari (`/cowboy-safari`)
 5. 1x1x1x1 Steal a Brainrot (`/1x1x1x1-steal-a-brainrot`)
-6. Grow or Trade 99 Nights & FNAF (`/grow-or-trade-99-nights-fnaf`)
+6. Grow or Trade 99 Nights & FNAF (`/grow-or-trade-99-nights-amp-fnaf`)
