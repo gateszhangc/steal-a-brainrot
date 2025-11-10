@@ -24,8 +24,8 @@
 | 9 | 67 Clicker | `/67-clicker` | ✅ 已完成 | 已有页面和数据文件 |
 | 10 | Steal A Brainrot Unblocked | `/steal-a-brainrot-unblocked` | ✅ 已完成 | 已有页面和数据文件 |
 | 11 | Slope Rider | `/slope-rider` | ✅ 已完成 | 已有页面和数据文件 |
-| 12 | Stumble Guys | `/stumble-guys` | ❌ 未完成 | |
-| 13 | Merge Rot | `/merge-rot` | ❌ 未完成 | |
+| 12 | Stumble Guys | `/stumble-guys` | ✅ 已完成 | 已有页面和数据文件 |
+| 13 | Merge Rot | `/merge-rot` | ✅ 已完成 | 已有页面和数据文件 |
 | 14 | Steal A Brainrot Roblox | `/steal-a-brainrot-roblox` | ❌ 未完成 | |
 | 15 | Steal A Brainrot 2 | `/steal-a-brainrot-2` | ❌ 未完成 | |
 | 16 | Steal Brainrot: New Animals | `/steal-brainrot-new-animals` | ❌ 未完成 | |
@@ -52,8 +52,8 @@
 
 ## 复刻进度统计
 - 总计：31个游戏
-- 已完成：11个 (35.5%)
-- 未完成：20个 (64.5%)
+- 已完成：13个 (41.9%)
+- 未完成：18个 (58.1%)
 
 ## 复刻流程（参考REPLICATION.md）
 
