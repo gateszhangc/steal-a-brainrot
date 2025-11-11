@@ -210,7 +210,7 @@
  submitHandler: function() {
  console.log('here');
  jQuery(".comment_loading").show();
- var question_ajax = "/make-comment.ajax";
+ var question_ajax = "/api/make-comment.ajax";
  var content = jQuery("#comment_content").val();
  var author = jQuery("#comment_author").val();
  var email = jQuery("#comment_email").val();;
@@ -308,7 +308,7 @@
  jQuery(".comment_vote_row_" + comment_id).css("fontSize", 0);
  jQuery(".comment_vote_row_" + comment_id).prop('onclick', null).off('click');
 
- var comment_comment_voteajax = "/comment-vote.ajax";
+ var comment_comment_voteajax = "/api/comment-vote.ajax";
  var metadataload = {};
  metadataload.comment_id = comment_id;
  metadataload.vote = vote;
@@ -344,7 +344,7 @@
  function load_comment(page, limit, sort, url, main_contain_id, refresh) {
  jQuery("#load_more_comment").remove();
  jQuery(".comment-load-more").show();
- var mainposturl = "/comment-paging.ajax";
+ var mainposturl = "/api/comments.ajax";
  var metadataload = {};
  metadataload.page = page;
  metadataload.limit = limit;

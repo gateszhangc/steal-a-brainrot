@@ -1,0 +1,15 @@
+{
+  "test_time": "2025-11-11T15:10:17.464226",
+  "steps": [
+    {
+      "step": 1,
+      "name": "访问首页",
+      "status": "error",
+      "response_status": 500,
+      "load_time": "1.29s"
+    }
+  ],
+  "errors": [],
+  "warnings": [],
+  "success": false
+}
