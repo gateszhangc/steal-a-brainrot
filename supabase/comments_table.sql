@@ -8,7 +8,6 @@ CREATE TABLE comments (
   game_id VARCHAR(100) NOT NULL DEFAULT 'steal-brainrot',
   status VARCHAR(20) NOT NULL DEFAULT 'pending' CHECK (status IN ('approved', 'pending', 'spam', 'trash')),
   ip_address INET,
-  user_agent TEXT,
   like_count INTEGER DEFAULT 0,
   dislike_count INTEGER DEFAULT 0,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
