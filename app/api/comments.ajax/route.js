@@ -12,12 +12,13 @@ export async function GET(request) {
     // 计算偏移量
     const offset = (page - 1) * limit
 
-    // 构建查询
+    // 构建查询 - 只获取顶级评论 (parent_id = 0)
     let query = supabase
       .from('comments')
       .select('*', { count: 'exact' })
       .eq('game_id', game_id)
-      // .eq('parent_id', 0) // 暂时移除这个条件来测试
+      .eq('parent_id', 0) // 只获取顶级评论
+      .eq('status', 'approved') // 只获取已批准的评论
 
     // 排序
     if (sort === 'newest') {
@@ -57,6 +58,7 @@ export async function GET(request) {
         .from('comments')
         .select('*')
         .in('parent_id', commentIds)
+        .eq('status', 'approved') // 只获取已批准的回复
         .order('created_at', { ascending: true })
 
       replies = repliesData || []

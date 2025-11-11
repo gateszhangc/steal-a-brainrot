@@ -6,6 +6,8 @@ export async function POST(request) {
     const body = await request.json()
     const { comment_id, vote_type } = body
 
+    console.log('🗳️ 处理投票请求:', { comment_id, vote_type })
+
     if (!comment_id || !vote_type || !['like', 'dislike'].includes(vote_type)) {
       return NextResponse.json(
         { success: false, error: 'Invalid parameters' },
