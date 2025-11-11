@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { supabase } from '@/lib/supabase-admin'
+import { supabaseAdmin } from '@/lib/supabase-admin'
 
 export async function GET(request) {
   try {
@@ -13,7 +13,7 @@ export async function GET(request) {
     const offset = (page - 1) * limit
 
     // 构建查询 - 只获取顶级评论 (parent_id = 0)
-    let query = supabase
+    let query = supabaseAdmin
       .from('comments')
       .select('*', { count: 'exact' })
       .eq('game_id', game_id)
@@ -54,7 +54,7 @@ export async function GET(request) {
     let replies = []
 
     if (commentIds.length > 0) {
-      const { data: repliesData } = await supabase
+      const { data: repliesData } = await supabaseAdmin
         .from('comments')
         .select('*')
         .in('parent_id', commentIds)
