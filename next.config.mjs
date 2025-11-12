@@ -7,9 +7,10 @@ const __dirname = path.dirname(__filename);
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: false,
-  experimental: {
-    optimizeCss: true
-  },
+  // 移除 optimizeCss 以加快启动速度
+  // experimental: {
+  //   optimizeCss: true
+  // },
   webpack: (config) => {
     config.resolve.alias = {
       ...config.resolve.alias,

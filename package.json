@@ -13,14 +13,19 @@
     "analyze:diff": "node scripts/analyzeRawDiff.js",
     "update:original": "node scripts/updateOriginalHtml.js",
     "update:seo": "node scripts/updateSeoAssets.js",
-    "extract:html": "node scripts/extractHtml.js"
+    "extract:html": "node scripts/extractHtml.js",
+    "seo:parse": "node scripts/parseSEMrush.js",
+    "seo:sitemap": "node scripts/generateSitemap.js",
+    "seo:audit": "node scripts/seoAudit.js",
+    "seo:all": "npm run seo:parse && npm run seo:sitemap && npm run seo:audit"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.81.0",
     "dotenv": "^17.2.3",
     "next": "14.2.3",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@types/node": "^20.11.17",
