@@ -42,6 +42,7 @@ export async function POST(request) {
         game_id,
         status: 'approved', // 直接设置为已批准状态
         ip_address: request.headers.get('x-forwarded-for') || request.ip
+        // user_agent: request.headers.get('user-agent') // 暂时注释，等待数据库表结构更新
       })
       .select()
       .single()
