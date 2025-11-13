@@ -18,7 +18,6 @@ export async function GET(request) {
       .select('*', { count: 'exact' })
       .eq('game_id', game_id)
       .eq('parent_id', 0) // 只获取顶级评论
-      .eq('status', 'approved') // 只获取已批准的评论
 
     // 排序
     if (sort === 'newest') {
@@ -58,7 +57,6 @@ export async function GET(request) {
         .from('comments')
         .select('*')
         .in('parent_id', commentIds)
-        .eq('status', 'approved') // 只获取已批准的回复
         .order('created_at', { ascending: true })
 
       replies = repliesData || []
