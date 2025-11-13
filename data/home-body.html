@@ -266,7 +266,10 @@
  reply_all();
  }
 
- jQuery("#comment_count").html(parseInt(("13")));
+ // 更新评论数量 - 增加1
+ var currentCount = jQuery("#comment_count").text().replace(/[()]/g, '');
+ var newCount = parseInt(currentCount) + 1;
+ jQuery("#comment_count").html("(" + newCount + ")");
  jQuery("html, body").animate({
  scrollTop: jQuery("#list_comment").offset().top
  }, 1000);
@@ -293,7 +296,7 @@
  });
 
 
- //load_comment(1, 5, "newest", "http://steal-brainrot.io/", "#list_comment", "");
+ load_comment(1, 5, "newest", "http://steal-brainrot.io/", "#list_comment", "");
  jQuery('#sort_by').on('change', function() {
  load_comment(1, 5, "" + this.value + "", "http://steal-brainrot.io/", "#list_comment", "f5");
  });
@@ -330,15 +333,10 @@
  var result = typeof data === 'string' ? jQuery.parseJSON(data) : data;
  if (result.success) {
  // 更新投票计数
- switch (vote) {
- case "up":
- jQuery("#comment_voteup_" + comment_id).html(comment_obj.like);
- break;
- case "down":
- jQuery("#comment_votedown_" + comment_id).html(comment_obj.dislike);
- break;
+ if (result.comment) {
+ jQuery("#comment_voteup_" + comment_id).html(result.comment.like_count || 0);
+ jQuery("#comment_votedown_" + comment_id).html(result.comment.dislike_count || 0);
  }
-
  }
  }
  }
