@@ -1,0 +1,99 @@
+{
+  "timestamp": "2025-11-12T07:25:14.859Z",
+  "summary": {
+    "totalIssues": 2,
+    "totalWarnings": 26,
+    "totalPassed": 6,
+    "score": 75
+  },
+  "issues": [
+    {
+      "message": "Missing default OG image (og-image.png)",
+      "severity": "high"
+    },
+    {
+      "message": "Missing viewport meta tag",
+      "severity": "medium"
+    }
+  ],
+  "warnings": [
+    "Title too long for page /when-s-the-next-admin-abuse-in-steal-a-brainrot: 85 chars",
+    "Title too long for page /what-s-the-best-secret-in-steal-a-brainrot: 80 chars",
+    "Title too long for page /will-there-be-admin-abuse-in-steal-a-brainrot-toda: 89 chars",
+    "Title too long for page /when-s-the-next-steal-a-brainrot-event: 76 chars",
+    "Title too long for page /did-do-big-studios-buy-steal-a-brainrot: 77 chars",
+    "Title too long for page /what-s-the-best-mutation-in-steal-a-brainrot: 82 chars",
+    "Title too long for page /what-s-the-max-rebirth-in-steal-a-brainrot: 80 chars",
+    "Title too long for page /when-s-the-next-steal-a-brainrot-admin-abuse: 82 chars",
+    "Title too long for page /a-que-hora-es-el-evento-de-steal-a-brainrot: 81 chars",
+    "Title too long for page /did-steal-a-brainrot-best-grow-a-garden: 77 chars",
+    "Title too long for page /did-steal-a-brainrot-copy-grow-a-garden: 77 chars",
+    "Title too long for page /was-there-admin-abuse-in-steal-a-brainrot-today: 85 chars",
+    "Title too long for page /what-s-the-best-trait-in-steal-a-brainrot: 79 chars",
+    "Title too long for page /when-s-the-next-steal-a-brainrot-update: 77 chars",
+    "Title too long for page /a-que-hora-empieza-el-evento-de-steal-a-brainrot: 86 chars",
+    "Title too long for page /a-que-horas-es-el-evento-de-steal-a-brainrot: 82 chars",
+    "Title too long for page /did-the-steal-a-brainrot-event-end: 72 chars",
+    "Title too long for page /should-i-play-steal-a-brainrot: 68 chars",
+    "Title too long for page /was-there-admin-abuse-today-in-steal-a-brainrot: 85 chars",
+    "Missing VideoGame schema type",
+    "Missing FAQPage schema type",
+    "Missing WebSite schema type",
+    "Missing Organization schema type",
+    "No navigation found in layout",
+    "Few internal navigation links found",
+    "No H1 heading found on main page"
+  ],
+  "results": [
+    {
+      "message": "Metadata audit completed",
+      "data": {
+        "totalKeywords": 20,
+        "totalFAQs": 15
+      },
+      "timestamp": "2025-11-12T07:25:14.847Z"
+    },
+    {
+      "message": "Schema markup audit completed",
+      "data": {
+        "schemaTypesFound": 4
+      },
+      "timestamp": "2025-11-12T07:25:14.849Z"
+    },
+    {
+      "message": "Sitemap audit completed",
+      "data": {
+        "urlCount": 48,
+        "fileSize": 9083
+      },
+      "timestamp": "2025-11-12T07:25:14.850Z"
+    },
+    {
+      "message": "Image audit completed",
+      "data": {
+        "totalImages": 0,
+        "largeImages": 0,
+        "unoptimizedImages": 0
+      },
+      "timestamp": "2025-11-12T07:25:14.854Z"
+    },
+    {
+      "message": "Internal links audit completed",
+      "data": {},
+      "timestamp": "2025-11-12T07:25:14.855Z"
+    },
+    {
+      "message": "Page structure audit completed",
+      "data": {
+        "hasLayout": true,
+        "hasMainPage": true
+      },
+      "timestamp": "2025-11-12T07:25:14.856Z"
+    }
+  ],
+  "recommendations": [
+    "Regularly update keyword data based on performance",
+    "Monitor search console for indexing issues",
+    "Consider implementing JSON-LD for all schema types"
+  ]
+}
