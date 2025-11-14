@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>星星评分演示 - 动态悬停效果</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="jquery.raty.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+
+        .demo-box {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .rating-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .rating-score {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff9800;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>星星评分效果对比</h1>
+
+    <div class="demo-box">
+        <h2>图1：静态评分（只读模式）</h2>
+        <p>鼠标悬停时星星不会变化</p>
+        <div class="rating-container">
+            <div id="rating-readonly"></div>
+            <span class="rating-score">4.2</span>
+        </div>
+    </div>
+
+    <div class="demo-box">
+        <h2>图2：动态评分（可交互模式）</h2>
+        <p>鼠标悬停时星星会根据位置动态高亮显示</p>
+        <div class="rating-container">
+            <div id="rating-interactive"></div>
+            <span class="rating-score" id="current-score">4.2</span>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            // 图1：只读模式 - 星星不会随鼠标变化
+            $('#rating-readonly').raty({
+                readOnly: true,  // 关键：设置为只读
+                score: 4.2,
+                starHalf: 'raty-images/star-half-big.png',
+                starOff: 'raty-images/star-off-big.png',
+                starOn: 'raty-images/star-on-big.png',
+                half: true,
+                number: 5
+            });
+
+            // 图2：可交互模式 - 星星会随鼠标位置动态变化
+            $('#rating-interactive').raty({
+                readOnly: false,  // 关键：设置为可交互
+                score: 4.2,
+                starHalf: 'raty-images/star-half-big.png',
+                starOff: 'raty-images/star-off-big.png',
+                starOn: 'raty-images/star-on-big.png',
+                half: true,
+                number: 5,
+                click: function (score, evt) {
+                    // 点击时更新显示的分数
+                    $('#current-score').text(score);
+                    alert('你给了 ' + score + ' 星评分！');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
