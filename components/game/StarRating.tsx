@@ -25,26 +25,23 @@ export function StarRating({ rating }: StarRatingProps) {
   };
 
   return (
-    <div className="flex flex-col text-white" aria-label={`Average rating ${rating.toFixed(1)} out of 5`}>
-      <div className="flex items-center gap-1">
-        {Array.from({ length: 5 }).map((_, idx) => (
-          <button
-            key={idx}
-            type="button"
-            className="inline-flex items-center justify-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-            onMouseEnter={() => setHover(idx + 1)}
-            onFocus={() => setHover(idx + 1)}
-            onMouseLeave={() => setHover(null)}
-            onBlur={() => setHover(null)}
-            onClick={() => setSelected(idx + 1)}
-            aria-label={`${idx + 1} star${idx ? "s" : ""}`}
-          >
-            <img src={spriteFor(idx)} alt="" width={22} height={22} />
-          </button>
-        ))}
-        <span className="ml-2 text-sm font-semibold text-white/90">{value.toFixed(1)}</span>
-      </div>
-      <span className="text-xs uppercase tracking-widest text-white/50">Rating</span>
+    <div className="flex items-center gap-1 text-white" aria-label={`Average rating ${rating.toFixed(1)} out of 5`}>
+      {Array.from({ length: 5 }).map((_, idx) => (
+        <button
+          key={idx}
+          type="button"
+          className="inline-flex items-center justify-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          onMouseEnter={() => setHover(idx + 1)}
+          onFocus={() => setHover(idx + 1)}
+          onMouseLeave={() => setHover(null)}
+          onBlur={() => setHover(null)}
+          onClick={() => setSelected(idx + 1)}
+          aria-label={`${idx + 1} star${idx ? "s" : ""}`}
+        >
+          <img src={spriteFor(idx)} alt="" width={22} height={22} />
+        </button>
+      ))}
+      <span className="ml-2 text-sm font-semibold text-white/90">{value.toFixed(1)}</span>
     </div>
   );
 }

@@ -40,7 +40,6 @@ export function GamePlayer({ hero, scrollTargetId }: GamePlayerProps) {
         className={`relative overflow-hidden rounded-2xl border border-white/5 bg-black ${
           isTheater ? "h-[72vh]" : "aspect-video"
         }`}
-        ref={playerRef}
       >
         <iframe
           ref={iframeRef}
@@ -57,7 +56,6 @@ export function GamePlayer({ hero, scrollTargetId }: GamePlayerProps) {
             <div className="max-w-sm rounded-3xl bg-black/40 p-8 shadow-[0_20px_60px_rgba(0,0,0,0.55)] backdrop-blur">
               {hero.thumbnail && (
                 <div className="mx-auto mb-4 h-32 w-32 overflow-hidden rounded-2xl border border-white/10">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={hero.thumbnail} alt={hero.title ?? "Game artwork"} className="h-full w-full object-cover" />
                 </div>
               )}
@@ -77,10 +75,7 @@ export function GamePlayer({ hero, scrollTargetId }: GamePlayerProps) {
           </div>
         )}
         <div className="absolute bottom-0 left-0 right-0 z-20 flex flex-wrap items-center justify-between gap-4 border-t border-white/10 bg-[#3c404b]/95 px-6 py-4">
-          <div>
-            <StarRating rating={hero.rating} />
-            <p className="text-xs text-white/60">Based on {hero.votes.toLocaleString()} votes</p>
-          </div>
+          <StarRating rating={hero.rating} />
           <div className="flex items-center gap-3">
             <button type="button" className="control-icon" onClick={scrollToComments} aria-label="Jump to comments">
               💬

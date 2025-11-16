@@ -1,6 +1,7 @@
-"use client";
+﻿"use client";
 
 import { useCallback, useEffect, useState } from "react";
+import type { FormEvent } from "react";
 
 interface CommentItem {
   id: number;
@@ -79,7 +80,7 @@ export function CommentsSection() {
     return null;
   }, [form]);
 
-  const handleSubmit = async (event: React.FormEvent) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const validationError = validateForm();
     if (validationError) {
@@ -126,17 +127,25 @@ export function CommentsSection() {
       if (!payload.success) {
         throw new Error(payload.error || "Unable to record vote");
       }
-      setComments((prev) =>
-        prev.map((comment) =>
-          comment.id === commentId
-            ? {
-                ...comment,
-                like_count: payload.counts.like,
-                dislike_count: payload.counts.dislike
-              }
-            : comment
-        )
-      );
+      const applyVote = (items: CommentItem[]): CommentItem[] =>
+        items.map((item) => {
+          if (item.id === commentId) {
+            return {
+              ...item,
+              like_count: payload.counts.like,
+              dislike_count: payload.counts.dislike
+            };
+          }
+          if (item.replies?.length) {
+            return {
+              ...item,
+              replies: applyVote(item.replies)
+            };
+          }
+          return item;
+        });
+
+      setComments((prev) => applyVote(prev));
     } catch (err) {
       setError(err instanceof Error ? err.message : "Unable to record vote");
     }
@@ -148,11 +157,14 @@ export function CommentsSection() {
     section?.scrollIntoView({ behavior: "smooth", block: "center" });
   };
 
+  const canGoBack = page > 1;
+  const canGoForward = page < totalPages;
+
   return (
     <section id="comments-section" className="card space-y-6">
       <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
         <div>
-          <h2 className="text-2xl font-semibold text-accent">?? Comments</h2>
+          <h2 className="text-2xl font-semibold text-accent">Comments</h2>
           <p className="text-sm text-white/60">Share your favorite steal tactics or ask for help.</p>
         </div>
         <label className="text-sm text-white/70">
@@ -209,13 +221,13 @@ export function CommentsSection() {
           required
         />
         <div className="flex flex-wrap items-center gap-4">
-          {error && <p className="text-sm text-red-400" role="alert">{error}</p>}
+          {error && <p className="text-sm text-red-400">{error}</p>}
           <button
             type="submit"
             className="control-button disabled:cursor-not-allowed disabled:opacity-60"
             disabled={submitting}
           >
-            {submitting ? "Posting..." : "Publish Comment"}
+            {submitting ? "Publishing..." : "Publish Comment"}
           </button>
         </div>
       </form>
@@ -239,14 +251,14 @@ export function CommentsSection() {
                     className="control-button min-w-[90px] justify-center bg-white/10"
                     onClick={() => handleVote(comment.id, "like")}
                   >
-                    ?? {comment.like_count}
+                    Like {comment.like_count}
                   </button>
                   <button
                     type="button"
                     className="control-button min-w-[90px] justify-center bg-white/10"
                     onClick={() => handleVote(comment.id, "dislike")}
                   >
-                    ?? {comment.dislike_count}
+                    Dislike {comment.dislike_count}
                   </button>
                 </div>
               </div>
@@ -257,15 +269,40 @@ export function CommentsSection() {
                 </button>
               </div>
               {comment.replies?.length ? (
-                <div className="mt-4 space-y-3 border-l border-white/10 pl-4">
+                <div className="mt-4 space-y-4 border-l border-white/10 pl-4">
                   {comment.replies.map((reply) => (
-                    <div key={reply.id} className="rounded-xl border border-white/5 bg-black/30 p-3">
-                      <div className="flex items-center justify-between text-xs text-white/60">
-                        <span className="font-semibold text-white">{reply.author}</span>
-                        <span>{reply.date}</span>
+                    <article key={reply.id} className="rounded-xl bg-night/40 p-4 text-sm text-white/80">
+                      <div className="flex flex-wrap items-center justify-between gap-3">
+                        <div>
+                          <p className="font-medium text-white">{reply.author}</p>
+                          <p className="text-[10px] uppercase tracking-widest text-white/50">{reply.date}</p>
+                        </div>
+                        <div className="flex gap-2 text-[10px] text-white/70">
+                          <button
+                            type="button"
+                            className="control-button bg-transparent px-2"
+                            onClick={() => handleVote(reply.id, "like")}
+                          >
+                            Like {reply.like_count}
+                          </button>
+                          <button
+                            type="button"
+                            className="control-button bg-transparent px-2"
+                            onClick={() => handleVote(reply.id, "dislike")}
+                          >
+                            Dislike {reply.dislike_count}
+                          </button>
+                        </div>
                       </div>
-                      <p className="mt-2 text-sm text-white/80">{reply.content}</p>
-                    </div>
+                      <p className="mt-2">{reply.content}</p>
+                      <button
+                        type="button"
+                        className="mt-3 text-[10px] uppercase tracking-widest text-accent"
+                        onClick={() => startReply(reply)}
+                      >
+                        Reply
+                      </button>
+                    </article>
                   ))}
                 </div>
               ) : null}
@@ -274,23 +311,23 @@ export function CommentsSection() {
         )}
       </div>
 
-      <div className="flex items-center justify-between text-sm text-white/70">
+      <div className="flex flex-wrap items-center justify-between gap-4">
         <button
           type="button"
           className="control-button disabled:cursor-not-allowed disabled:opacity-60"
           onClick={() => setPage((prev) => Math.max(1, prev - 1))}
-          disabled={page === 1}
+          disabled={!canGoBack || loading}
         >
           Previous
         </button>
-        <span>
+        <p className="text-sm text-white/60">
           Page {page} of {totalPages}
-        </span>
+        </p>
         <button
           type="button"
           className="control-button disabled:cursor-not-allowed disabled:opacity-60"
           onClick={() => setPage((prev) => Math.min(totalPages, prev + 1))}
-          disabled={page === totalPages}
+          disabled={!canGoForward || loading}
         >
           Next
         </button>
