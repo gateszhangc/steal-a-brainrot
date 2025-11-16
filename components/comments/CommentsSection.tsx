@@ -40,11 +40,11 @@ export function CommentsSection() {
   const [replyingTo, setReplyingTo] = useState<CommentItem | null>(null);
   const [form, setForm] = useState({ name: "", email: "", content: "" });
 
-  const loadComments = useCallback(async () => {
+  const loadComments = useCallback(async (targetPage: number, targetSort: string) => {
     try {
       setLoading(true);
       const response = await fetch(
-        `/api/comments.ajax?game_id=${GAME_ID}&page=${page}&limit=5&sort=${sort}`
+        `/api/comments.ajax?game_id=${GAME_ID}&page=${targetPage}&limit=5&sort=${targetSort}`
       );
       const payload = (await response.json()) as ApiResponse;
       if (!payload.success) {
@@ -58,15 +58,15 @@ export function CommentsSection() {
     } finally {
       setLoading(false);
     }
-  }, [page, sort]);
+  }, []);
 
   useEffect(() => {
-    loadComments();
-  }, [loadComments]);
+    loadComments(page, sort);
+  }, [page, sort, loadComments]);
 
   const isFormValid = useMemo(() => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return form.name.trim().length > 1 && emailRegex.test(form.email) && form.content.trim().length > 5;
+    return form.name.trim().length > 1 && emailRegex.test(form.email) && form.content.trim().length > 2;
   }, [form]);
 
   const handleSubmit = async (event: React.FormEvent) => {
@@ -91,6 +91,7 @@ export function CommentsSection() {
       setForm({ name: "", email: "", content: "" });
       setReplyingTo(null);
       setPage(1);
+      await loadComments(1, sort);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Unable to submit comment");
     }
@@ -98,14 +99,28 @@ export function CommentsSection() {
 
   const handleVote = async (commentId: number, type: "like" | "dislike") => {
     try {
-      await fetch("/api/comment-vote.ajax", {
+      const response = await fetch("/api/comment-vote.ajax", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ comment_id: commentId, vote_type: type })
       });
-      await loadComments();
-    } catch {
-      setError("Unable to record your vote. Please try again.");
+      const payload = await response.json();
+      if (!payload.success) {
+        throw new Error(payload.error || "Unable to record vote");
+      }
+      setComments((prev) =>
+        prev.map((comment) =>
+          comment.id === commentId
+            ? {
+                ...comment,
+                like_count: payload.counts.like,
+                dislike_count: payload.counts.dislike
+              }
+            : comment
+        )
+      );
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Unable to record vote");
     }
   };
 
@@ -201,10 +216,18 @@ export function CommentsSection() {
                   <p className="text-xs uppercase tracking-widest text-white/50">{comment.date}</p>
                 </div>
                 <div className="flex gap-2 text-xs text-white/70">
-                  <button type="button" className="control-button bg-white/10 px-3" onClick={() => handleVote(comment.id, "like")}>
+                  <button
+                    type="button"
+                    className="control-button min-w-[90px] justify-center bg-white/10"
+                    onClick={() => handleVote(comment.id, "like")}
+                  >
                     👍 {comment.like_count}
                   </button>
-                  <button type="button" className="control-button bg-white/10 px-3" onClick={() => handleVote(comment.id, "dislike")}>
+                  <button
+                    type="button"
+                    className="control-button min-w-[90px] justify-center bg-white/10"
+                    onClick={() => handleVote(comment.id, "dislike")}
+                  >
                     👎 {comment.dislike_count}
                   </button>
                 </div>

@@ -1,5 +1,6 @@
 ﻿"use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import type { SiteLink } from "@/lib/homepage/types";
@@ -26,17 +27,21 @@ export function Header({ brand, navLinks, searchPlaceholder }: HeaderProps) {
     event.preventDefault();
     if (!term.trim()) return;
     console.info(`Search submitted: ${term}`);
-    setFeedback(`正在搜索：${term}`);
+    setFeedback(`Searching for “${term}”...`);
   };
 
   return (
     <header className="sticky top-0 z-40 border-b border-white/5 bg-panel/95 shadow-lg shadow-black/20 backdrop-blur">
       <div className="mx-auto flex max-w-[1400px] items-center gap-6 px-6 py-4 lg:px-8">
-        <Link
-          href="/"
-          className="rounded-lg bg-accent px-3 py-1 text-sm font-black uppercase tracking-widest text-black"
-        >
-          {brand}
+        <Link href="/" className="flex items-center gap-3 rounded-lg bg-accent/90 px-3 py-1">
+          <Image
+            src="/cache/data/image/options/Steal-Brainrot-logo-hx50.webp"
+            alt={`${brand} logo`}
+            width={96}
+            height={32}
+            className="h-8 w-auto"
+          />
+          <span className="sr-only">{brand}</span>
         </Link>
         <nav className="hidden items-center gap-8 text-sm font-semibold uppercase tracking-wide text-white/80 lg:flex">
           {navLinks.map((link) => (
@@ -45,24 +50,24 @@ export function Header({ brand, navLinks, searchPlaceholder }: HeaderProps) {
             </Link>
           ))}
         </nav>
-        <form onSubmit={handleSearch} className="ml-auto hidden flex-1 items-center gap-3 md:flex">
+        <form onSubmit={handleSearch} className="ml-auto hidden w-full max-w-xl items-center gap-3 md:flex">
           <input
             type="search"
             name="search"
             placeholder={searchPlaceholder}
             value={term}
             onChange={(event) => setTerm(event.target.value)}
-            className="h-11 flex-1 rounded-lg border border-surface bg-night px-4 text-sm text-white placeholder:text-white/40 focus:border-accent focus:outline-none"
-            aria-label="搜索游戏"
+            className="h-11 w-full max-w-sm rounded-lg border border-surface bg-night px-4 text-sm text-white placeholder:text-white/40 focus:border-accent focus:outline-none"
+            aria-label="Search games"
           />
-          <button type="submit" className="control-button min-w-[90px] justify-center">
-            🔍 搜索
+          <button type="submit" className="control-button min-w-[110px] justify-center">
+            🔍 Search
           </button>
         </form>
         <button
           type="button"
           className="ml-auto text-3xl text-white md:hidden"
-          aria-label="打开菜单"
+          aria-label="Open menu"
           onClick={() => setIsOpen(true)}
         >
           ☰
@@ -77,10 +82,10 @@ export function Header({ brand, navLinks, searchPlaceholder }: HeaderProps) {
             value={term}
             onChange={(event) => setTerm(event.target.value)}
             className="h-11 flex-1 rounded-lg border border-surface bg-night px-4 text-sm text-white placeholder:text-white/40 focus:border-accent focus:outline-none"
-            aria-label="搜索游戏"
+            aria-label="Search games"
           />
-          <button type="submit" className="control-button min-w-[90px] justify-center">
-            🔍
+          <button type="submit" className="control-button min-w-[80px] justify-center">
+            🔍 Go
           </button>
         </form>
       </div>

@@ -3,7 +3,12 @@
     "embedUrl": "https://stealabrainrot.quest/embed",
     "rating": 4.2,
     "ratingLabel": "⭐⭐⭐⭐☆",
-    "votes": 609
+    "votes": 609,
+    "title": "Steal a Brainrot",
+    "cta": "Play Now",
+    "ctaUrl": "/steal-brainrot-online",
+    "thumbnail": "https://steal-brainrot.io/cache/data/image/options/Steal-a-Brainrot-m144x144.jpg",
+    "backgroundImage": "https://steal-brainrot.io/cache/data/image/game/steal-brainrot-online-f180x180.webp"
   },
   "stats": {
     "rating": "4.3 (609 votes)",

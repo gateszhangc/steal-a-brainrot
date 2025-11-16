@@ -19,6 +19,18 @@ const nextConfig = {
     maxInactiveAge: 25 * 1000,
     pagesBufferLength: 2,
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'steal-brainrot.io'
+      },
+      {
+        protocol: 'https',
+        hostname: 'stealabrainrot.quest'
+      }
+    ]
+  },
   webpack: (config, { isServer }) => {
     config.resolve.alias = {
       ...config.resolve.alias,

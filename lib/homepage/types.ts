@@ -3,6 +3,11 @@
   rating: number;
   ratingLabel: string;
   votes: number;
+  title?: string;
+  cta?: string;
+  ctaUrl?: string;
+  thumbnail?: string;
+  backgroundImage?: string;
 }
 
 export interface GameStats {
@@ -20,6 +25,7 @@ export interface RecommendedGame {
   slug: string;
   icon: string;
   tagline: string;
+  image?: string;
 }
 
 export interface TocItem {

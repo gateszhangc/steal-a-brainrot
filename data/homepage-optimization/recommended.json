@@ -1,14 +1,14 @@
 ﻿[
-  {"id":"steal-brainrot-online","name":"Steal Brainrot Online","slug":"steal-brainrot-online","icon":"🎮","tagline":"Original heist arena"},
-  {"id":"los-bros","name":"Los Bros","slug":"los-bros-in-steal-a-brainrot","icon":"🧠","tagline":"Legendary duo raid"},
-  {"id":"xlope","name":"Xlope","slug":"xlope","icon":"⛰️","tagline":"Classic downhill run"},
-  {"id":"2v2io","name":"2v2.io","slug":"2v2io","icon":"⚔️","tagline":"Team battle arena"},
-  {"id":"plants-vs-brainrots","name":"Plants vs Brainrots","slug":"plants-vs-brainrots","icon":"🌿","tagline":"Tower defense chaos"},
-  {"id":"mr-flips","name":"Mr Flips","slug":"mr-flips","icon":"🤹","tagline":"Arcade flipping"},
-  {"id":"growden-io","name":"Growden.io","slug":"growdenio","icon":"🌐","tagline":"Idle growth"},
-  {"id":"ragdoll-playground","name":"Ragdoll Playground","slug":"ragdoll-playground","icon":"🧸","tagline":"Physics sandbox"},
-  {"id":"67-clicker","name":"67 Clicker","slug":"67-clicker","icon":"🖱️","tagline":"Speed clicking"},
-  {"id":"slope-rider","name":"Slope Rider","slug":"slope-rider","icon":"⛷️","tagline":"Fast slopes"},
-  {"id":"stumble-guys","name":"Stumble Guys","slug":"stumble-guys","icon":"🏃","tagline":"Party chaos"},
-  {"id":"merge-rot","name":"Merge Rot","slug":"merge-rot","icon":"🧬","tagline":"Merge mania"}
+  {"id":"steal-brainrot-online","name":"Steal Brainrot Online","slug":"steal-brainrot-online","icon":"🎮","tagline":"Original heist arena","image":"https://steal-brainrot.io/cache/data/image/game/steal-brainrot-online-f180x180.webp"},
+  {"id":"los-bros","name":"Los Bros","slug":"los-bros-in-steal-a-brainrot","icon":"🧠","tagline":"Legendary duo raid","image":"https://steal-brainrot.io/cache/data/image/game/Los-Bros-Steal-a-Brainrot2-f180x180.webp"},
+  {"id":"xlope","name":"Xlope","slug":"xlope","icon":"⛰️","tagline":"Classic downhill run","image":"https://steal-brainrot.io/cache/data/image/game/xlope-f180x180.webp"},
+  {"id":"2v2io","name":"2v2.io","slug":"2v2io","icon":"⚔️","tagline":"Team battle arena","image":"https://steal-brainrot.io/cache/data/image/game/2v2-io-2-f180x180.webp"},
+  {"id":"plants-vs-brainrots","name":"Plants vs Brainrots","slug":"plants-vs-brainrots","icon":"🌿","tagline":"Tower defense chaos","image":"https://steal-brainrot.io/cache/data/image/game/plants-vs-brainrots-f180x180.webp"},
+  {"id":"mr-flips","name":"Mr Flips","slug":"mr-flips","icon":"🤹","tagline":"Arcade flipping","image":"https://steal-brainrot.io/cache/data/image/game/mr-flips-f180x180.webp"},
+  {"id":"growden-io","name":"Growden.io","slug":"growdenio","icon":"🌐","tagline":"Idle growth","image":"https://steal-brainrot.io/cache/data/image/game/growden-io-f180x180.webp"},
+  {"id":"ragdoll-playground","name":"Ragdoll Playground","slug":"ragdoll-playground","icon":"🧸","tagline":"Physics sandbox","image":"https://steal-brainrot.io/cache/data/image/game/ragdoll-playground-f180x180.webp"},
+  {"id":"67-clicker","name":"67 Clicker","slug":"67-clicker","icon":"🖱️","tagline":"Speed clicking","image":"https://steal-brainrot.io/cache/data/image/game/67-clicker-game-f180x180.webp"},
+  {"id":"slope-rider","name":"Slope Rider","slug":"slope-rider","icon":"⛷️","tagline":"Fast slopes","image":"https://steal-brainrot.io/cache/data/image/game/slope-rider-f180x180.webp"},
+  {"id":"stumble-guys","name":"Stumble Guys","slug":"stumble-guys","icon":"🏃","tagline":"Party chaos","image":"https://steal-brainrot.io/cache/data/image/game/stumble-guys-1-f180x180.webp"},
+  {"id":"merge-rot","name":"Merge Rot","slug":"merge-rot","icon":"🧬","tagline":"Merge mania","image":"https://steal-brainrot.io/cache/data/image/game/merge-rot-f180x180.webp"}
 ]
