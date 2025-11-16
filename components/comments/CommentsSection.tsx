@@ -69,22 +69,14 @@ export function CommentsSection() {
 
   const isCommentValid = useMemo(() => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return (
-      commentForm.name.trim().length > 1 &&
-      emailRegex.test(commentForm.email.trim()) &&
-      commentForm.content.trim().length > 2
-    );
-  }, [commentForm]);
+    return emailRegex.test(commentForm.email.trim());
+  }, [commentForm.email]);
 
   const isReplyValid = useMemo(() => {
     if (!replyTarget) return false;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return (
-      replyForm.name.trim().length > 1 &&
-      emailRegex.test(replyForm.email.trim()) &&
-      replyForm.content.trim().length > 2
-    );
-  }, [replyForm, replyTarget]);
+    return emailRegex.test(replyForm.email.trim());
+  }, [replyForm.email, replyTarget]);
 
   const submitComment = useCallback(
     async (formData: { name: string; email: string; content: string }, parentId: number) => {
@@ -287,7 +279,7 @@ export function CommentsSection() {
               <div className="mt-4 flex flex-wrap gap-3 text-xs text-white/60">
                 <button
                   type="button"
-                  className="rounded-full border border-white/20 px-4 py-1 text-xs font-semibold uppercase tracking-widest text-white transition hover:border-accent hover:text-accent"
+                  className="rounded-full border border-accent/40 bg-accent/15 px-4 py-1 text-xs font-semibold uppercase tracking-widest text-accent transition hover:bg-accent/25"
                   onClick={() => startReply(comment)}
                 >
                   Reply
