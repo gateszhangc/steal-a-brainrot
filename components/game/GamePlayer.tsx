@@ -66,17 +66,20 @@ export function GamePlayer({ hero, scrollTargetId }: GamePlayerProps) {
             </Link>
           </div>
         </div>
-        <div className="absolute bottom-0 left-0 right-0 flex flex-wrap items-center justify-between gap-4 border-t border-white/10 bg-night/90 px-6 py-4">
-          <StarRating rating={hero.rating} />
-          <div className="flex flex-wrap items-center gap-3">
-            <button type="button" className="control-button" onClick={scrollToComments}>
-              💬 Comments
+        <div className="absolute bottom-0 left-0 right-0 flex flex-wrap items-center justify-between gap-4 border-t border-white/10 bg-[#3c404b]/95 px-6 py-4">
+          <div>
+            <StarRating rating={hero.rating} />
+            <p className="text-xs text-white/60">Based on {hero.votes.toLocaleString()} votes</p>
+          </div>
+          <div className="flex items-center gap-3">
+            <button type="button" className="control-icon" onClick={scrollToComments} aria-label="Jump to comments">
+              💬
             </button>
-            <button type="button" className="control-button" onClick={toggleTheater}>
-              🖥️ {isTheater ? "Default View" : "Theater Mode"}
+            <button type="button" className="control-icon" onClick={toggleTheater} aria-label="Toggle theater mode">
+              ⤢
             </button>
-            <button type="button" className="control-button" onClick={toggleFullscreen}>
-              ⛶ Fullscreen
+            <button type="button" className="control-icon" onClick={toggleFullscreen} aria-label="Toggle fullscreen">
+              ⛶
             </button>
           </div>
         </div>
