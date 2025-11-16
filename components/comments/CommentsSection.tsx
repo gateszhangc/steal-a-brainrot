@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import type { FormEvent } from "react";
@@ -210,10 +210,10 @@ export function CommentsSection() {
           placeholder={textareaPlaceholder}
           value={form.content}
           onChange={(event) => setForm((prev) => ({ ...prev, content: event.target.value }))}
-          className="min-h-[120px] rounded-lg border border-white/10 bg-night px-4 py-3 text-sm focus:border-accent focus:outline-none"
+          className="min-h-[120px] w-full rounded-lg border border-white/10 bg-night px-4 py-3 text-sm focus:border-accent focus:outline-none"
           required
         />
-        <div className="flex flex-wrap items-center gap-4">
+        <div className="flex flex-wrap items-center justify-end gap-4">
           {error && <p className="text-sm text-red-400">{error}</p>}
           <button
             type="submit"
