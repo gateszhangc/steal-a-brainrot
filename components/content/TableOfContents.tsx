@@ -27,7 +27,6 @@ export function TableOfContents({ items }: TableOfContentsProps) {
               onClick={handleClick(item.id)}
               className="flex items-center gap-2 rounded-lg px-3 py-2 text-white/80 transition hover:bg-white/5 hover:text-accent"
             >
-              <span className="text-white/40">#</span>
               {item.label}
             </a>
           </li>
