@@ -38,8 +38,9 @@ export function CommentsSection() {
   const [totalPages, setTotalPages] = useState(1);
   const [sort, setSort] = useState<(typeof SORT_OPTIONS)[number]["value"]>("newest");
   const [error, setError] = useState<string | null>(null);
-  const [replyTarget, setReplyTarget] = useState<CommentItem | null>(null);
-  const [form, setForm] = useState({ name: "", email: "", content: "" });
+  const [replyTarget, setreplyTarget] = useState<CommentItem | null>(null);
+  const [commentForm, setCommentForm] = useState({ name: "", email: "", content: "" });
+  const [replyForm, setReplyForm] = useState({ name: "", email: "", content: "" });
   const [submitting, setSubmitting] = useState(false);
 
   const loadComments = useCallback(async (targetPage: number, targetSort: string) => {
@@ -66,26 +67,35 @@ export function CommentsSection() {
     loadComments(page, sort);
   }, [page, sort, loadComments]);
 
-  const isFormValid = useMemo(() => {
+  const isCommentValid = useMemo(() => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return form.name.trim().length > 1 && emailRegex.test(form.email.trim()) && form.content.trim().length > 2;
-  }, [form]);
+    return (
+      commentForm.name.trim().length > 1 &&
+      emailRegex.test(commentForm.email.trim()) &&
+      commentForm.content.trim().length > 2
+    );
+  }, [commentForm]);
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    if (!isFormValid) {
-      return;
-    }
-    try {
-      setSubmitting(true);
+  const isReplyValid = useMemo(() => {
+    if (!replyTarget) return false;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return (
+      replyForm.name.trim().length > 1 &&
+      emailRegex.test(replyForm.email.trim()) &&
+      replyForm.content.trim().length > 2
+    );
+  }, [replyForm, replyTarget]);
+
+  const submitComment = useCallback(
+    async (formData: { name: string; email: string; content: string }, parentId: number) => {
       const response = await fetch("/api/make-comment.ajax", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          author: form.name,
-          email: form.email,
-          content: form.content,
-          parent_id: replyTarget?.id ?? 0,
+          author: formData.name,
+          email: formData.email,
+          content: formData.content,
+          parent_id: parentId,
           game_id: GAME_ID
         })
       });
@@ -93,12 +103,37 @@ export function CommentsSection() {
       if (!payload.success) {
         throw new Error(payload.error || "Unable to submit comment");
       }
-      setForm({ name: "", email: "", content: "" });
-      setReplyTarget(null);
-      setPage(1);
       await loadComments(1, sort);
+      setPage(1);
+    },
+    [loadComments, sort]
+  );
+
+  const handleSubmitComment = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (!isCommentValid) return;
+    try {
+      setSubmitting(true);
+      await submitComment(commentForm, 0);
+      setCommentForm({ name: "", email: "", content: "" });
+      setreplyTarget(null);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Unable to submit comment");
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const handleSubmitReply = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (!replyTarget || !isReplyValid) return;
+    try {
+      setSubmitting(true);
+      await submitComment(replyForm, replyTarget.id);
+      setReplyForm({ name: "", email: "", content: "" });
+      setreplyTarget(null);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Unable to submit reply");
     } finally {
       setSubmitting(false);
     }
@@ -141,17 +176,18 @@ export function CommentsSection() {
   };
 
   const startReply = (comment: CommentItem) => {
-    setReplyTarget(comment);
+    setreplyTarget(comment);
+    setReplyForm({ name: "", email: "", content: "" });
     const section = document.getElementById(`comment-${comment.id}`) ?? document.getElementById("comments-section");
     section?.scrollIntoView({ behavior: "smooth", block: "center" });
   };
 
   const cancelReply = () => {
-    setReplyTarget(null);
-    setForm({ name: "", email: "", content: "" });
+    setreplyTarget(null);
+    setReplyForm({ name: "", email: "", content: "" });
   };
 
-  const textareaPlaceholder = replyTarget ? `Replying to ${replyTarget.author}...` : "Share your comment...";
+  const textareaPlaceholder = "Share your comment...";
 
   return (
     <section id="comments-section" className="card space-y-6">
@@ -179,37 +215,29 @@ export function CommentsSection() {
         </label>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-4 rounded-2xl border border-white/10 bg-surface/60 p-6">
-        {replyTarget && (
-          <div className="flex items-center justify-between rounded-lg border border-accent/50 bg-accent/10 px-4 py-2 text-sm text-accent">
-            Replying to {replyTarget.author}
-            <button type="button" onClick={cancelReply} className="text-xs uppercase tracking-widest">
-              Cancel
-            </button>
-          </div>
-        )}
+      <form onSubmit={handleSubmitComment} className="space-y-4 rounded-2xl border border-white/10 bg-surface/60 p-6">
         <div className="grid gap-4 md:grid-cols-2">
           <input
             type="text"
             placeholder="Your name"
-            value={form.name}
-            onChange={(event) => setForm((prev) => ({ ...prev, name: event.target.value }))}
+            value={commentForm.name}
+            onChange={(event) => setCommentForm((prev) => ({ ...prev, name: event.target.value }))}
             className="h-12 rounded-lg border border-white/10 bg-night px-4 text-sm focus:border-accent focus:outline-none"
             required
           />
           <input
             type="email"
             placeholder="Email"
-            value={form.email}
-            onChange={(event) => setForm((prev) => ({ ...prev, email: event.target.value }))}
+            value={commentForm.email}
+            onChange={(event) => setCommentForm((prev) => ({ ...prev, email: event.target.value }))}
             className="h-12 rounded-lg border border-white/10 bg-night px-4 text-sm focus:border-accent focus:outline-none"
             required
           />
         </div>
         <textarea
           placeholder={textareaPlaceholder}
-          value={form.content}
-          onChange={(event) => setForm((prev) => ({ ...prev, content: event.target.value }))}
+          value={commentForm.content}
+          onChange={(event) => setCommentForm((prev) => ({ ...prev, content: event.target.value }))}
           className="min-h-[120px] w-full rounded-lg border border-white/10 bg-night px-4 py-3 text-sm focus:border-accent focus:outline-none"
           required
         />
@@ -218,9 +246,9 @@ export function CommentsSection() {
           <button
             type="submit"
             className="control-button rounded-full bg-accent px-6 disabled:cursor-not-allowed disabled:opacity-60"
-            disabled={submitting || !isFormValid}
+            disabled={submitting || !isCommentValid}
           >
-            {submitting ? "Publishing..." : replyTarget ? "Publish Reply" : "Publish Comment"}
+            {submitting ? "Publishing..." : "Publish Comment"}
           </button>
         </div>
       </form>
@@ -259,19 +287,37 @@ export function CommentsSection() {
               <div className="mt-4 flex flex-wrap gap-3 text-xs text-white/60">
                 <button
                   type="button"
-                  className="rounded-full border border-white/20 px-4 py-1 text-xs font-semibold uppercase tracking-widest text-white transition hover:border-white/60"
+                  className="rounded-full border border-white/20 px-4 py-1 text-xs font-semibold uppercase tracking-widest text-white transition hover:border-accent hover:text-accent"
                   onClick={() => startReply(comment)}
                 >
                   Reply
                 </button>
               </div>
               {replyTarget?.id === comment.id && (
-                <div className="mt-4 rounded-xl border border-accent/40 bg-night/30 p-4">
+                <form className="mt-4 rounded-xl border border-accent/40 bg-night/30 p-4" onSubmit={handleSubmitReply}>
                   <p className="text-xs uppercase tracking-widest text-accent">Replying to {replyTarget.author}</p>
+                  <div className="mt-3 grid gap-3 md:grid-cols-2">
+                    <input
+                      type="text"
+                      placeholder="Your name"
+                      value={replyForm.name}
+                      onChange={(event) => setReplyForm((prev) => ({ ...prev, name: event.target.value }))}
+                      className="h-10 rounded-lg border border-white/10 bg-night px-3 text-sm focus:border-accent focus:outline-none"
+                      required
+                    />
+                    <input
+                      type="email"
+                      placeholder="Email"
+                      value={replyForm.email}
+                      onChange={(event) => setReplyForm((prev) => ({ ...prev, email: event.target.value }))}
+                      className="h-10 rounded-lg border border-white/10 bg-night px-3 text-sm focus:border-accent focus:outline-none"
+                      required
+                    />
+                  </div>
                   <textarea
                     placeholder={`Reply to ${replyTarget.author}...`}
-                    value={form.content}
-                    onChange={(event) => setForm((prev) => ({ ...prev, content: event.target.value }))}
+                    value={replyForm.content}
+                    onChange={(event) => setReplyForm((prev) => ({ ...prev, content: event.target.value }))}
                     className="mt-3 min-h-[80px] w-full rounded-lg border border-white/15 bg-night px-3 py-2 text-sm focus:border-accent focus:outline-none"
                     required
                   />
@@ -284,15 +330,14 @@ export function CommentsSection() {
                       Cancel
                     </button>
                     <button
-                      type="button"
-                      className="control-button rounded-full bg-accent px-5"
-                      disabled={submitting || !isFormValid}
-                      onClick={handleSubmit}
+                      type="submit"
+                      className="control-button rounded-full bg-accent px-5 disabled:cursor-not-allowed disabled:opacity-60"
+                      disabled={submitting || !isReplyValid}
                     >
                       {submitting ? "Publishing..." : "Publish Reply"}
                     </button>
                   </div>
-                </div>
+                </form>
               )}
               {comment.replies?.length ? (
                 <div className="mt-4 space-y-4 border-l border-white/10 pl-4">
