@@ -217,7 +217,7 @@ export function CommentsSection() {
           {error && <p className="text-sm text-red-400">{error}</p>}
           <button
             type="submit"
-            className="control-button disabled:cursor-not-allowed disabled:opacity-60"
+            className="control-button rounded-full bg-accent px-6 disabled:cursor-not-allowed disabled:opacity-60"
             disabled={submitting || !isFormValid}
           >
             {submitting ? "Publishing..." : replyTarget ? "Publish Reply" : "Publish Comment"}
@@ -241,23 +241,27 @@ export function CommentsSection() {
                 <div className="flex gap-2 text-xs text-white/70">
                   <button
                     type="button"
-                    className="control-button min-w-[90px] justify-center bg-white/10"
+                    className="rounded-xl border border-white/15 px-4 py-2 text-sm font-semibold text-white transition hover:border-white/40"
                     onClick={() => handleVote(comment.id, "like")}
                   >
-                    Like {comment.like_count}
+                    👍 {comment.like_count}
                   </button>
                   <button
                     type="button"
-                    className="control-button min-w-[90px] justify-center bg-white/10"
+                    className="rounded-xl border border-white/15 px-4 py-2 text-sm font-semibold text-white transition hover:border-white/40"
                     onClick={() => handleVote(comment.id, "dislike")}
                   >
-                    Dislike {comment.dislike_count}
+                    👎 {comment.dislike_count}
                   </button>
                 </div>
               </div>
               <p className="mt-3 text-white/90">{comment.content}</p>
               <div className="mt-4 flex flex-wrap gap-3 text-xs text-white/60">
-                <button type="button" className="control-button bg-white/10 px-3" onClick={() => startReply(comment)}>
+                <button
+                  type="button"
+                  className="rounded-full border border-white/20 px-4 py-1 text-xs font-semibold uppercase tracking-widest text-white transition hover:border-white/60"
+                  onClick={() => startReply(comment)}
+                >
                   Reply
                 </button>
               </div>
