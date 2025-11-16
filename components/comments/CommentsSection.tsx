@@ -265,6 +265,35 @@ export function CommentsSection() {
                   Reply
                 </button>
               </div>
+              {replyTarget?.id === comment.id && (
+                <div className="mt-4 rounded-xl border border-accent/40 bg-night/30 p-4">
+                  <p className="text-xs uppercase tracking-widest text-accent">Replying to {replyTarget.author}</p>
+                  <textarea
+                    placeholder={`Reply to ${replyTarget.author}...`}
+                    value={form.content}
+                    onChange={(event) => setForm((prev) => ({ ...prev, content: event.target.value }))}
+                    className="mt-3 min-h-[80px] w-full rounded-lg border border-white/15 bg-night px-3 py-2 text-sm focus:border-accent focus:outline-none"
+                    required
+                  />
+                  <div className="mt-3 flex flex-wrap items-center justify-end gap-3">
+                    <button
+                      type="button"
+                      className="text-xs uppercase tracking-widest text-white/60 hover:text-white"
+                      onClick={cancelReply}
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="button"
+                      className="control-button rounded-full bg-accent px-5"
+                      disabled={submitting || !isFormValid}
+                      onClick={handleSubmit}
+                    >
+                      {submitting ? "Publishing..." : "Publish Reply"}
+                    </button>
+                  </div>
+                </div>
+              )}
               {comment.replies?.length ? (
                 <div className="mt-4 space-y-4 border-l border-white/10 pl-4">
                   {comment.replies.map((reply) => (
@@ -277,28 +306,21 @@ export function CommentsSection() {
                         <div className="flex gap-2 text-[10px] text-white/70">
                           <button
                             type="button"
-                            className="control-button bg-transparent px-2"
+                            className="rounded-xl border border-white/15 px-3 py-1 text-xs font-semibold text-white transition hover:border-white/40"
                             onClick={() => handleVote(reply.id, "like")}
                           >
-                            Like {reply.like_count}
+                            👍 {reply.like_count}
                           </button>
                           <button
                             type="button"
-                            className="control-button bg-transparent px-2"
+                            className="rounded-xl border border-white/15 px-3 py-1 text-xs font-semibold text-white transition hover:border-white/40"
                             onClick={() => handleVote(reply.id, "dislike")}
                           >
-                            Dislike {reply.dislike_count}
+                            👎 {reply.dislike_count}
                           </button>
                         </div>
                       </div>
                       <p className="mt-2">{reply.content}</p>
-                      <button
-                        type="button"
-                        className="mt-3 text-[10px] uppercase tracking-widest text-accent"
-                        onClick={() => startReply(reply)}
-                      >
-                        Reply
-                      </button>
                     </article>
                   ))}
                 </div>
