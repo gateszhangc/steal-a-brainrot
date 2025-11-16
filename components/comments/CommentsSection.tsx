@@ -1,6 +1,6 @@
 ﻿"use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import type { FormEvent } from "react";
 
 interface CommentItem {
@@ -29,7 +29,7 @@ const SORT_OPTIONS = [
   { value: "newest", label: "Newest" },
   { value: "oldest", label: "Oldest" },
   { value: "popular", label: "Most liked" }
-];
+] as const;
 
 export function CommentsSection() {
   const [comments, setComments] = useState<CommentItem[]>([]);
@@ -38,7 +38,7 @@ export function CommentsSection() {
   const [totalPages, setTotalPages] = useState(1);
   const [sort, setSort] = useState<(typeof SORT_OPTIONS)[number]["value"]>("newest");
   const [error, setError] = useState<string | null>(null);
-  const [replyingTo, setReplyingTo] = useState<CommentItem | null>(null);
+  const [replyTarget, setReplyTarget] = useState<CommentItem | null>(null);
   const [form, setForm] = useState({ name: "", email: "", content: "" });
   const [submitting, setSubmitting] = useState(false);
 
@@ -66,30 +66,18 @@ export function CommentsSection() {
     loadComments(page, sort);
   }, [page, sort, loadComments]);
 
-  const validateForm = useCallback(() => {
+  const isFormValid = useMemo(() => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (form.name.trim().length < 2) {
-      return "Please share a name or nickname.";
-    }
-    if (!emailRegex.test(form.email.trim())) {
-      return "Please enter a valid email so we can follow up.";
-    }
-    if (form.content.trim().length < 3) {
-      return "Your comment needs a little more detail.";
-    }
-    return null;
+    return form.name.trim().length > 1 && emailRegex.test(form.email.trim()) && form.content.trim().length > 2;
   }, [form]);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const validationError = validateForm();
-    if (validationError) {
-      setError(validationError);
+    if (!isFormValid) {
       return;
     }
     try {
       setSubmitting(true);
-      setError(null);
       const response = await fetch("/api/make-comment.ajax", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -97,7 +85,7 @@ export function CommentsSection() {
           author: form.name,
           email: form.email,
           content: form.content,
-          parent_id: replyingTo?.id ?? 0,
+          parent_id: replyTarget?.id ?? 0,
           game_id: GAME_ID
         })
       });
@@ -106,7 +94,7 @@ export function CommentsSection() {
         throw new Error(payload.error || "Unable to submit comment");
       }
       setForm({ name: "", email: "", content: "" });
-      setReplyingTo(null);
+      setReplyTarget(null);
       setPage(1);
       await loadComments(1, sort);
     } catch (err) {
@@ -127,7 +115,8 @@ export function CommentsSection() {
       if (!payload.success) {
         throw new Error(payload.error || "Unable to record vote");
       }
-      const applyVote = (items: CommentItem[]): CommentItem[] =>
+
+      const updateCounts = (items: CommentItem[]): CommentItem[] =>
         items.map((item) => {
           if (item.id === commentId) {
             return {
@@ -139,26 +128,30 @@ export function CommentsSection() {
           if (item.replies?.length) {
             return {
               ...item,
-              replies: applyVote(item.replies)
+              replies: updateCounts(item.replies)
             };
           }
           return item;
         });
 
-      setComments((prev) => applyVote(prev));
+      setComments((prev) => updateCounts(prev));
     } catch (err) {
       setError(err instanceof Error ? err.message : "Unable to record vote");
     }
   };
 
   const startReply = (comment: CommentItem) => {
-    setReplyingTo(comment);
-    const section = document.getElementById("comments-section");
+    setReplyTarget(comment);
+    const section = document.getElementById(`comment-${comment.id}`) ?? document.getElementById("comments-section");
     section?.scrollIntoView({ behavior: "smooth", block: "center" });
   };
 
-  const canGoBack = page > 1;
-  const canGoForward = page < totalPages;
+  const cancelReply = () => {
+    setReplyTarget(null);
+    setForm({ name: "", email: "", content: "" });
+  };
+
+  const textareaPlaceholder = replyTarget ? `Replying to ${replyTarget.author}...` : "Share your comment...";
 
   return (
     <section id="comments-section" className="card space-y-6">
@@ -187,10 +180,10 @@ export function CommentsSection() {
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4 rounded-2xl border border-white/10 bg-surface/60 p-6">
-        {replyingTo && (
+        {replyTarget && (
           <div className="flex items-center justify-between rounded-lg border border-accent/50 bg-accent/10 px-4 py-2 text-sm text-accent">
-            Replying to {replyingTo.author}
-            <button type="button" onClick={() => setReplyingTo(null)} className="text-xs uppercase tracking-widest">
+            Replying to {replyTarget.author}
+            <button type="button" onClick={cancelReply} className="text-xs uppercase tracking-widest">
               Cancel
             </button>
           </div>
@@ -214,7 +207,7 @@ export function CommentsSection() {
           />
         </div>
         <textarea
-          placeholder="Share what you love about Steal A Brainrot..."
+          placeholder={textareaPlaceholder}
           value={form.content}
           onChange={(event) => setForm((prev) => ({ ...prev, content: event.target.value }))}
           className="min-h-[120px] rounded-lg border border-white/10 bg-night px-4 py-3 text-sm focus:border-accent focus:outline-none"
@@ -225,9 +218,9 @@ export function CommentsSection() {
           <button
             type="submit"
             className="control-button disabled:cursor-not-allowed disabled:opacity-60"
-            disabled={submitting}
+            disabled={submitting || !isFormValid}
           >
-            {submitting ? "Publishing..." : "Publish Comment"}
+            {submitting ? "Publishing..." : replyTarget ? "Publish Reply" : "Publish Comment"}
           </button>
         </div>
       </form>
@@ -239,7 +232,7 @@ export function CommentsSection() {
           <p className="text-sm text-white/60">No comments yet. Be the first to steal the spotlight!</p>
         ) : (
           comments.map((comment) => (
-            <article key={comment.id} className="rounded-2xl border border-white/10 bg-surface/70 p-5">
+            <article key={comment.id} id={`comment-${comment.id}`} className="rounded-2xl border border-white/10 bg-surface/70 p-5">
               <div className="flex flex-wrap items-center justify-between gap-4">
                 <div>
                   <p className="font-semibold text-white">{comment.author}</p>
@@ -316,7 +309,7 @@ export function CommentsSection() {
           type="button"
           className="control-button disabled:cursor-not-allowed disabled:opacity-60"
           onClick={() => setPage((prev) => Math.max(1, prev - 1))}
-          disabled={!canGoBack || loading}
+          disabled={loading || page === 1}
         >
           Previous
         </button>
@@ -327,7 +320,7 @@ export function CommentsSection() {
           type="button"
           className="control-button disabled:cursor-not-allowed disabled:opacity-60"
           onClick={() => setPage((prev) => Math.min(totalPages, prev + 1))}
-          disabled={!canGoForward || loading}
+          disabled={loading || page === totalPages}
         >
           Next
         </button>
@@ -335,4 +328,3 @@ export function CommentsSection() {
     </section>
   );
 }
-
