@@ -1,6 +1,6 @@
-﻿"use client";
+"use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 interface CommentItem {
   id: number;
@@ -39,6 +39,7 @@ export function CommentsSection() {
   const [error, setError] = useState<string | null>(null);
   const [replyingTo, setReplyingTo] = useState<CommentItem | null>(null);
   const [form, setForm] = useState({ name: "", email: "", content: "" });
+  const [submitting, setSubmitting] = useState(false);
 
   const loadComments = useCallback(async (targetPage: number, targetSort: string) => {
     try {
@@ -64,15 +65,30 @@ export function CommentsSection() {
     loadComments(page, sort);
   }, [page, sort, loadComments]);
 
-  const isFormValid = useMemo(() => {
+  const validateForm = useCallback(() => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return form.name.trim().length > 1 && emailRegex.test(form.email) && form.content.trim().length > 2;
+    if (form.name.trim().length < 2) {
+      return "Please share a name or nickname.";
+    }
+    if (!emailRegex.test(form.email.trim())) {
+      return "Please enter a valid email so we can follow up.";
+    }
+    if (form.content.trim().length < 3) {
+      return "Your comment needs a little more detail.";
+    }
+    return null;
   }, [form]);
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    if (!isFormValid) return;
+    const validationError = validateForm();
+    if (validationError) {
+      setError(validationError);
+      return;
+    }
     try {
+      setSubmitting(true);
+      setError(null);
       const response = await fetch("/api/make-comment.ajax", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -94,6 +110,8 @@ export function CommentsSection() {
       await loadComments(1, sort);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Unable to submit comment");
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -134,7 +152,7 @@ export function CommentsSection() {
     <section id="comments-section" className="card space-y-6">
       <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
         <div>
-          <h2 className="text-2xl font-semibold text-accent">💬 Comments</h2>
+          <h2 className="text-2xl font-semibold text-accent">?? Comments</h2>
           <p className="text-sm text-white/60">Share your favorite steal tactics or ask for help.</p>
         </div>
         <label className="text-sm text-white/70">
@@ -191,13 +209,13 @@ export function CommentsSection() {
           required
         />
         <div className="flex flex-wrap items-center gap-4">
-          {error && <p className="text-sm text-red-400">{error}</p>}
+          {error && <p className="text-sm text-red-400" role="alert">{error}</p>}
           <button
             type="submit"
             className="control-button disabled:cursor-not-allowed disabled:opacity-60"
-            disabled={!isFormValid}
+            disabled={submitting}
           >
-            Publish Comment
+            {submitting ? "Posting..." : "Publish Comment"}
           </button>
         </div>
       </form>
@@ -221,14 +239,14 @@ export function CommentsSection() {
                     className="control-button min-w-[90px] justify-center bg-white/10"
                     onClick={() => handleVote(comment.id, "like")}
                   >
-                    👍 {comment.like_count}
+                    ?? {comment.like_count}
                   </button>
                   <button
                     type="button"
                     className="control-button min-w-[90px] justify-center bg-white/10"
                     onClick={() => handleVote(comment.id, "dislike")}
                   >
-                    👎 {comment.dislike_count}
+                    ?? {comment.dislike_count}
                   </button>
                 </div>
               </div>
