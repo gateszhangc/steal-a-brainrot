@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Steal Brainrot | Play Steal A Brainrot Online</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #0C0D14;
+            color: #fff;
+        }
+
+        /* Header 导航栏 */
+        header {
+            background: #1a1b26;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+
+        .logo {
+            height: 50px;
+            background: #41e161;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: bold;
+            color: #000;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #41e161;
+        }
+
+        .search-bar {
+            display: flex;
+            gap: 0.5rem;
+            flex: 1;
+            max-width: 400px;
+        }
+
+        .search-bar input {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: 2px solid #2a2b36;
+            border-radius: 8px;
+            background: #0C0D14;
+            color: #fff;
+            font-size: 14px;
+        }
+
+        .search-bar button {
+            padding: 0.75rem 1.5rem;
+            background: #41e161;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* 主容器 */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* 游戏播放区域 */
+        .game-section {
+            margin-bottom: 2rem;
+        }
+
+        .game-player {
+            background: #1a1b26;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .iframe-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            background: #000;
+        }
+
+        .iframe-placeholder {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #666;
+            font-size: 48px;
+        }
+
+        .game-controls {
+            position: absolute;
+            bottom: 1rem;
+            left: 1rem;
+            right: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(42, 43, 54, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 8px;
+        }
+
+        .controls-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .controls-right {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .stars {
+            color: #fccc00;
+        }
+
+        .control-btn {
+            padding: 0.5rem 1rem;
+            background: #41e161;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        /* 推荐游戏列表 - 横向滚动 */
+        .recommended-games {
+            background: #1a1b26;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .recommended-games h3 {
+            margin-bottom: 1rem;
+            color: #41e161;
+            font-size: 1.25rem;
+        }
+
+        .game-scroll-container {
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding-bottom: 0.5rem;
+        }
+
+        .game-scroll-container::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .game-scroll-container::-webkit-scrollbar-track {
+            background: #2a2b36;
+            border-radius: 4px;
+        }
+
+        .game-scroll-container::-webkit-scrollbar-thumb {
+            background: #41e161;
+            border-radius: 4px;
+        }
+
+        .game-grid-small {
+            display: flex;
+            gap: 1rem;
+            width: max-content;
+        }
+
+        .game-card-small {
+            background: #2a2b36;
+            border-radius: 8px;
+            padding: 0.75rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 140px;
+            flex-shrink: 0;
+        }
+
+        .game-card-small:hover {
+            transform: translateY(-8px);
+            background: #3a3b46;
+            box-shadow: 0 8px 20px rgba(65, 225, 97, 0.3);
+        }
+
+        .game-card-img {
+            width: 100%;
+            height: 100px;
+            background: #0C0D14;
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 40px;
+        }
+
+        .game-card-small span {
+            font-size: 13px;
+            display: block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            font-weight: 600;
+        }
+
+        /* 游戏信息表格 */
+        .game-info {
+            background: #1a1b26;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .info-item {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .info-label {
+            font-weight: bold;
+            color: #41e161;
+        }
+
+        /* 游戏介绍内容 */
+        .content-section {
+            background: #1a1b26;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .table-of-contents {
+            background: #3b444e;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+
+        .table-of-contents h3 {
+            color: #fccc00;
+            margin-bottom: 1rem;
+        }
+
+        .table-of-contents ul {
+            list-style: none;
+            padding-left: 1rem;
+        }
+
+        .table-of-contents a {
+            color: #fccc00;
+            text-decoration: none;
+            line-height: 1.8;
+        }
+
+        .content-section h2 {
+            color: #41e161;
+            margin: 2rem 0 1rem;
+        }
+
+        .content-section h3 {
+            color: #fccc00;
+            margin: 1.5rem 0 0.75rem;
+        }
+
+        .content-section p {
+            line-height: 1.8;
+            margin-bottom: 1rem;
+            color: #ccc;
+        }
+
+        .character-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: #2a2b36;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .character-table th {
+            background: #41e161;
+            color: #000;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .character-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #3a3b46;
+        }
+
+        .character-table tr:last-child td {
+            border-bottom: none;
+        }
+
+
+
+        /* 评论区 */
+        .comments-section {
+            background: #1a1b26;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .comments-section h2 {
+            color: #41e161;
+            margin-bottom: 1.5rem;
+        }
+
+        .comment-form {
+            background: #2a2b36;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .comment-form input,
+        .comment-form textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #3a3b46;
+            border-radius: 6px;
+            background: #0C0D14;
+            color: #fff;
+            font-family: inherit;
+        }
+
+        .comment-form textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            padding: 0.75rem 2rem;
+            background: #41e161;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            float: right;
+        }
+
+        .comment-item {
+            background: #2a2b36;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .comment-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+            color: #41e161;
+        }
+
+        .comment-text {
+            color: #ccc;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            background: #1a1b26;
+            padding: 3rem 2rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .footer-logo {
+            height: 60px;
+            background: #41e161;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: bold;
+            color: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #41e161;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #2a2b36;
+            padding-top: 1.5rem;
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .footer-bottom p {
+            margin-bottom: 0.5rem;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .menu-btn {
+                display: block;
+            }
+
+            .game-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .controls-left,
+            .controls-right {
+                justify-content: center;
+            }
+
+            .control-btn {
+                font-size: 11px;
+                padding: 0.4rem 0.8rem;
+            }
+
+            .game-card-small {
+                width: 120px;
+            }
+
+            .game-card-img {
+                height: 80px;
+                font-size: 32px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header 导航栏 -->
+    <header>
+        <div class="header-container">
+            <div class="logo">STEAL BRAINROT</div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#">Steal Brainrot Online</a></li>
+                    <li><a href="#">67 Clicker</a></li>
+                </ul>
+            </nav>
+            <div class="search-bar">
+                <input type="text" placeholder="Search games">
+                <button>🔍</button>
+            </div>
+            <button class="menu-btn">☰</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- 游戏播放区域 -->
+        <section class="game-section">
+            <div class="game-player">
+                <div class="iframe-container">
+                    <div class="iframe-placeholder">🎮</div>
+                    <div class="game-controls">
+                        <div class="controls-left">
+                            <div class="rating">
+                                <span class="stars">⭐⭐⭐⭐☆</span>
+                                <span>4.2</span>
+                            </div>
+                        </div>
+                        <div class="controls-right">
+                            <button class="control-btn">💬 评论</button>
+                            <button class="control-btn">🖥️ 剧院模式</button>
+                            <button class="control-btn">⛶ 全屏</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 推荐游戏 - 横向滚动 -->
+            <div class="recommended-games">
+                <h3>🎮 推荐游戏</h3>
+                <div class="game-scroll-container">
+                    <div class="game-grid-small">
+                        <div class="game-card-small">
+                            <div class="game-card-img">🎮</div>
+                            <span>Steal Brainrot Online</span>
+                        </div>
+                        <div class="game-card-small">
+                            <div class="game-card-img">🎮</div>
+                            <span>Los Bros</span>
+                        </div>
+                        <div class="game-card-small">
+                            <div class="game-card-img">🎮</div>
+                            <span>Xlope</span>
+                        </div>
+                        <div class="game-card-small">
+                            <div class="game-card-img">🎮</div>
+                            <span>2v2.io</span>
+                        </div>
+                        <div class="game-card-small">
+                            <div class="game-card-img">🎮</div>
+                            <span>Plants vs Brainrots</span>
+                        </div>
+                        <div class="game-card-small">
+                            <div class="game-card-img">🎮</div>
+                            <span>Mr Flips</span>
+                        </div>
+                        <div class="game-card-small">
+                            <div class="game-card-img">🎮</div>
+                            <span>Growden.io</span>
+                        </div>
+                        <div class="game-card-small">
+                            <div class="game-card-img">🎮</div>
+                            <span>Ragdoll Playground</span>
+                        </div>
+                        <div class="game-card-small">
+                            <div class="game-card-img">🎮</div>
+                            <span>67 Clicker</span>
+                        </div>
+                        <div class="game-card-small">
+                            <div class="game-card-img">🎮</div>
+                            <span>Slope Rider</span>
+                        </div>
+                        <div class="game-card-small">
+                            <div class="game-card-img">🎮</div>
+                            <span>Stumble Guys</span>
+                        </div>
+                        <div class="game-card-small">
+                            <div class="game-card-img">🎮</div>
+                            <span>Merge Rot</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 游戏信息表格 -->
+        <section class="game-info">
+            <div class="info-grid">
+                <div class="info-item">
+                    <span class="info-label">评分:</span>
+                    <span>⭐ 4.3 (609 votes)</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">播放次数:</span>
+                    <span>294,473</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">开发者:</span>
+                    <span>Brazilian Spyder</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">发布日期:</span>
+                    <span>May 16, 2025</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">技术:</span>
+                    <span>HTML5</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">分类:</span>
+                    <span>Roblox, Meme, Brainrot, Casual</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 游戏介绍内容 -->
+        <section class="content-section">
+            <div class="table-of-contents">
+                <h3>📋 目录导航</h3>
+                <ul>
+                    <li><a href="#what-is">• 什么是 Steal A Brainrot?</a></li>
+                    <li><a href="#overview">• 游戏概览</a></li>
+                    <li><a href="#how-to-play">• 如何玩和赚钱</a></li>
+                    <li><a href="#tips">• 专业技巧</a></li>
+                    <li><a href="#characters">• 角色列表</a></li>
+                    <li><a href="#faq">• FAQ</a></li>
+                </ul>
+            </div>
+
+            <h2 id="what-is">What is Steal A Brainrot?</h2>
+            <p><strong>Steal a Brainrot</strong> is a fun, <strong>chaotic 3D Roblox casual heist game</strong> that
+                features many Italian Brainrot meme characters, each one generating income at their own rate. In this
+                game, your main goal is to fill your base with Brainrots to grow your passive income as fast as
+                possible. You start with an empty base and can either build it steadily by buying Brainrots from your
+                conveyor or take a riskier path by stealing them from other players or combining both.</p>
+            <p>The game features dozens of Brainrot characters, divided into <strong>7 tiers</strong> or rarities. Every
+                Brainrot character generates income at a unique rate—higher-tier ones consistently bring in more.</p>
+
+            <h2 id="overview">Game Overview</h2>
+            <table class="character-table">
+                <thead>
+                    <tr>
+                        <th>Steal Brainrot Game</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="background: #f0f8ff;">Developer</td>
+                        <td>Brazilian Spyder</td>
+                    </tr>
+                    <tr>
+                        <td style="background: #f0f8ff;">Release Date</td>
+                        <td>May 16, 2025</td>
+                    </tr>
+                    <tr>
+                        <td style="background: #f0f8ff;">Game rules and objects</td>
+                        <td>Buy, steal, and upgrade Brainrots to grow your base and increase income.</td>
+                    </tr>
+                    <tr>
+                        <td style="background: #f0f8ff;">Brainrots lineup</td>
+                        <td>25+ Brainrot meme characters, grouped into 7 tiers: <span
+                                style="background: #333; color: #fccc00; padding: 2px 6px; border-radius: 3px; font-weight: 600;">Common,
+                                Rare, Epic, Legendary, Mythic, Brainrot God, Secret</span></td>
+                    </tr>
+                    <tr>
+                        <td style="background: #f0f8ff;">Idle Income</td>
+                        <td>Brainrots in-game earnings while in your base.</td>
+                    </tr>
+                    <tr>
+                        <td style="background: #f0f8ff;">How to control</td>
+                        <td><span
+                                style="background: #333; color: #fccc00; padding: 2px 6px; border-radius: 3px; font-family: 'Courier New', monospace; font-weight: 600;">WASD</span>
+                            to move<br><span
+                                style="background: #333; color: #fccc00; padding: 2px 6px; border-radius: 3px; font-family: 'Courier New', monospace; font-weight: 600;">E</span>
+                            to buy or sell a Brainrot</td>
+                    </tr>
+                    <tr>
+                        <td style="background: #f0f8ff;">Visual graphics</td>
+                        <td>3D visuals inspired by <span
+                                style="background: #333; color: #fccc00; padding: 2px 6px; border-radius: 3px; font-weight: 600;">Roblox's
+                                signature style</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2 id="how-to-play">How to Play and Collect Rewards in Steal A Brainrot</h2>
+            <p>You start with some in-game money and an empty base. To generate more, it's a must to buy Brainrots,
+                which automatically yield a certain amount per second. Basically, you begin with basic ones first, then
+                purchase higher-tier ones when you can afford them.</p>
+
+            <h3 id="buy-first">Buy your first Brairots: Noobini Pizzanini</h3>
+            <p>Noobini Pizzanini costs just a quarter of your initial budget; it's your best option at the beginning
+                when you have just a limited budget. Head to the spawn zone (a conveyor belt) to pick them. In Steal A
+                Brainrot, you can buy a Brainrot multiple times, as long as you can afford it.</p>
+
+            <h3 id="get-funds">Get in-game funds & buy higher-tier Brainrots</h3>
+            <p>Brainrots start generating resources as soon as they're placed in your base. Collect your income; once
+                you have enough, go back to the conveyor belt to grab a more expensive Brainrot, which is sure to come
+                with a higher generation rate and bring you more collections. Here's the core, simple loop: collect
+                income and invest in higher-tier Brainrots to maximize your collectings.</p>
+            <p><strong>Tip: Be sure that you have enough space for new Brainrots. If it's full, sell the Brainrots with
+                    the lowest income rate.</strong></p>
+
+            <h3 id="steal">Steal the Brainrot from others (if possible)</h3>
+            <p>Spot a nearby player with your dream Brainrots? Sneak into their base, grab those characters, and bring
+                them to your base. This is faster but dangerous, since you risk being counterattacked. Do not forget
+                that your base can be raided as well, so be sure to defend it well to keep thieves out.</p>
+
+            <h2 id="tips">Bonus: 5 Pro Tips and Tricks to Progress Faster</h2>
+            <ol style="color: #ccc; line-height: 1.8; padding-left: 2rem;">
+                <li>Kick things off early with low-rate Brainrots. Don't underestimate their powers; they give you
+                    essential boosts when you have just a little money in hand.</li>
+                <li>Keep at least one slot free when you want a new Brainrot. You can't collect new Brainrots if your
+                    base is full. So, sell one first before getting another.</li>
+                <li>Keep an eye on the conveyor belt for legendary and mythic Brainrots. They guarantee incredible
+                    income rates but don't show up often. Prioritize grabbing them to boost your collectings.</li>
+                <li>Steal smart. If you'd like to steal others' Brainrot, target weaker bases without much defense to
+                    maximize gains with less risk.</li>
+                <li>Balance offense and defense. Don't leave your base open while chasing raids. It's obvious, right?
+                </li>
+            </ol>
+
+            <h2 id="characters">List of Brainrot characters in Steal A Brainrot</h2>
+            <p>Here's the list of some Brainrots in the game, their in-game rates, prices, and more.</p>
+            <table class="character-table">
+                <thead>
+                    <tr>
+                        <th>Character</th>
+                        <th>Tier</th>
+                        <th>Income Rate</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Noobini Pizzanini</td>
+                        <td><span
+                                style="background: #373c3d; color: white; padding: 3px 8px; border-radius: 16px; font-size: 11px; font-weight: bold;">COMMON</span>
+                        </td>
+                        <td style="color: #27834e; font-weight: bold; font-family: 'Courier New', monospace;">$1/sec
+                        </td>
+                        <td style="color: #8b6509; font-weight: 600;">$25</td>
+                    </tr>
+                    <tr>
+                        <td>Tim Chesse</td>
+                        <td><span
+                                style="background: #373c3d; color: white; padding: 3px 8px; border-radius: 16px; font-size: 11px; font-weight: bold;">COMMON</span>
+                        </td>
+                        <td style="color: #27834e; font-weight: bold; font-family: 'Courier New', monospace;">$5/sec
+                        </td>
+                        <td style="color: #8b6509; font-weight: 600;">$500</td>
+                    </tr>
+                    <tr>
+                        <td>Tung Tung Tung Sahur</td>
+                        <td><span
+                                style="background: #1374b5; color: white; padding: 3px 8px; border-radius: 16px; font-size: 11px; font-weight: bold;">RARE</span>
+                        </td>
+                        <td style="color: #27834e; font-weight: bold; font-family: 'Courier New', monospace;">$25/sec
+                        </td>
+                        <td style="color: #8b6509; font-weight: 600;">$3K</td>
+                    </tr>
+                    <tr>
+                        <td>Capuchino Assassino</td>
+                        <td><span
+                                style="background: #9b59b6; color: white; padding: 3px 8px; border-radius: 16px; font-size: 11px; font-weight: bold;">EPIC</span>
+                        </td>
+                        <td style="color: #27834e; font-weight: bold; font-family: 'Courier New', monospace;">$75/sec
+                        </td>
+                        <td style="color: #8b6509; font-weight: 600;">$10K</td>
+                    </tr>
+                    <tr>
+                        <td>Burbaloni Loliloli</td>
+                        <td><span
+                                style="background: #a36707; color: white; padding: 3px 8px; border-radius: 16px; font-size: 11px; font-weight: bold;">LEGENDARY</span>
+                        </td>
+                        <td style="color: #27834e; font-weight: bold; font-family: 'Courier New', monospace;">$250/sec
+                        </td>
+                        <td style="color: #8b6509; font-weight: 600;">$35K</td>
+                    </tr>
+                    <tr>
+                        <td>Orangutini Ananassini</td>
+                        <td><span
+                                style="background: #b02e24; color: white; padding: 3px 8px; border-radius: 16px; font-size: 11px; font-weight: bold;">MYTHIC</span>
+                        </td>
+                        <td style="color: #27834e; font-weight: bold; font-family: 'Courier New', monospace;">$1.7K/sec
+                        </td>
+                        <td style="color: #8b6509; font-weight: 600;">$400K</td>
+                    </tr>
+                    <tr>
+                        <td>Tralalero Tralala</td>
+                        <td><span
+                                style="background: #8e44ad; color: white; padding: 3px 8px; border-radius: 16px; font-size: 11px; font-weight: bold;">BRAINROT
+                                GOD</span></td>
+                        <td style="color: #27834e; font-weight: bold; font-family: 'Courier New', monospace;">$50K/sec
+                        </td>
+                        <td style="color: #8b6509; font-weight: 600;">$10M</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2 id="faq">FAQs</h2>
+            <h3>What is the best Brainrot in Steal a Brainrot?</h3>
+            <p>The top-performing Brainrot Roblox game is Strawberry Elephant, an OG unit that generates the best
+                income. However, in some versions of the game, like this one, Los Bros is the one.</p>
+
+            <h3>What is the rarest Brainrot in Steal a Brainrot?</h3>
+            <p>The rarest brainrots are those belonging to the Brainrot God and Secret tiers. Some of them are Odin Din
+                Din Dun (Brain God) and, especially, Los Bros (Secret).</p>
+
+            <h3>How do I get new Brainrots?</h3>
+            <p>You can either purchase them or steal them from others. To buy a new Brainrot, you need to make sure that
+                you have enough funds and space in your base.</p>
+
+            <h3>Are there different rarities of Brainrots?</h3>
+            <p>Yes, Brainrots come in different rarities, each with unique looks and higher value.</p>
+
+            <h3>Where to play Steal Brainrot online?</h3>
+            <p>Visit https://stealabrainrot.quest to enjoy Steal a Brainrot for free; no downloads, installs, or
+                sign-ups are required.</p>
+
+            <h2>It's Time to Steal a Brainrot!</h2>
+            <p>Ready to buy and <strong>steal brainrot</strong> to fill your base with just top-performing characters?
+                Play Steal a Brainrot today, collect as many Brainrots as you can, and have fun!</p>
+        </section>
+
+
+
+        <!-- 评论区 -->
+        <section class="comments-section">
+            <h2>💬 发表评论</h2>
+            <div class="comment-form">
+                <div class="form-row">
+                    <input type="text" placeholder="你的名字">
+                    <input type="email" placeholder="你的邮箱">
+                </div>
+                <textarea placeholder="写下你的评论..."></textarea>
+                <button class="submit-btn">提交评论</button>
+                <div style="clear: both;"></div>
+            </div>
+
+            <h3 style="margin-bottom: 1rem;">已有评论</h3>
+            <div class="comment-item">
+                <div class="comment-header">
+                    <span>👤 玩家123</span>
+                    <span style="color: #666;">⏰ 2小时前</span>
+                </div>
+                <div class="comment-text">
+                    这个游戏太好玩了！我已经收集了10个传奇角色！
+                </div>
+            </div>
+            <div class="comment-item">
+                <div class="comment-header">
+                    <span>👤 游戏达人</span>
+                    <span style="color: #666;">⏰ 5小时前</span>
+                </div>
+                <div class="comment-text">
+                    偷窃机制很有趣，但要小心别被反偷了😂
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-logo">STEAL BRAINROT</div>
+                <div class="footer-links">
+                    <a href="#">About Us</a>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Term Of Use</a>
+                    <a href="#">Contact Us</a>
+                    <a href="#">Copyright</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 Steal Brainrot. All rights reserved.</p>
+                <p>本站是独立网站，不隶属于任何组织。所有游戏版权归其各自所有者所有。</p>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

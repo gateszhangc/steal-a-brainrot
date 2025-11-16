@@ -1,3 +1,157 @@
-@tailwind base;
+﻿@tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --color-night: #0c0d14;
+  --color-panel: #1a1b26;
+  --color-surface: #2a2b36;
+  --color-accent: #41e161;
+  --color-slate: #3b444e;
+  color-scheme: dark;
+}
+
+html,
+body {
+  background-color: var(--color-night);
+  color: #ffffff;
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+}
+
+a {
+  color: inherit;
+}
+
+main {
+  width: 100%;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1f202a;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-accent);
+  border-radius: 4px;
+}
+
+.card {
+  background: var(--color-panel);
+  border-radius: 12px;
+  padding: 2rem;
+}
+
+@layer components {
+  .control-button {
+    @apply flex items-center gap-2 rounded-md bg-accent px-4 py-2 text-sm font-semibold text-black transition hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent;
+  }
+}
+
+.mdx-content h2 {
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.mdx-content h3 {
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.mdx-content p {
+  color: #d7dbe5;
+  line-height: 1.9;
+  margin-bottom: 1rem;
+}
+
+.mdx-content ol {
+  padding-left: 1.5rem;
+  color: #d7dbe5;
+  line-height: 1.8;
+}
+
+.mdx-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1.25rem;
+  background: var(--color-surface);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.mdx-content th,
+.mdx-content td {
+  padding: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.mdx-content th {
+  text-align: left;
+  color: var(--color-accent);
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.mdx-content td {
+  color: #f5f5f5;
+}
+
+.mdx-content tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.mdx-content .rarity-pill,
+.mdx-content .control-chip,
+.mdx-content .tier {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.75rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.mdx-content .tier.common {
+  background: #373c3d;
+}
+
+.mdx-content .tier.rare {
+  background: #1374b5;
+}
+
+.mdx-content .tier.epic {
+  background: #9b59b6;
+}
+
+.mdx-content .tier.legendary {
+  background: #a36707;
+}
+
+.mdx-content .tier.mythic {
+  background: #b02e24;
+}
+
+.mdx-content .tier.god {
+  background: #8e44ad;
+}
+
+@media (max-width: 768px) {
+  .card {
+    padding: 1.5rem;
+  }
+}

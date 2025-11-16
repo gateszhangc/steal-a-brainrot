@@ -1,0 +1,18 @@
+﻿{
+  "brand": "STEAL BRAINROT",
+  "domain": "https://stealabrainrot.quest",
+  "searchPlaceholder": "Search games",
+  "navLinks": [
+    {"label": "Steal Brainrot Online", "href": "/steal-brainrot-online"},
+    {"label": "67 Clicker", "href": "/67-clicker"}
+  ],
+  "footerLinks": [
+    {"label": "About Us", "href": "/about-us"},
+    {"label": "Privacy Policy", "href": "/privacy-policy"},
+    {"label": "Term Of Use", "href": "/term-of-use"},
+    {"label": "Contact Us", "href": "/contact-us"},
+    {"label": "Copyright", "href": "/copyright-infringement-notice-procedure"}
+  ],
+  "disclaimer": "This independent fan site isn't affiliated with Roblox or the Steal Brainrot developers. All trademarks belong to their respective owners.",
+  "copyright": "© 2025 Steal Brainrot. All rights reserved."
+}

@@ -1,27 +1,36 @@
+﻿import type { Metadata } from "next";
+import { Nunito } from "next/font/google";
 import type { ReactNode } from "react";
 import "./globals.css";
-import fs from "node:fs";
-import path from "node:path";
 
-export const metadata = {
-  title: "Steal a Brainrot",
-  description: "Play Steal A Brainrot now and step into the Roblox-style world full of absurd meme characters"
+const nunito = Nunito({ subsets: ["latin"], variable: "--font-nunito" });
+
+export const metadata: Metadata = {
+  metadataBase: new URL("https://stealabrainrot.quest"),
+  title: "Steal Brainrot | Play Steal A Brainrot Online",
+  description:
+    "Play Steal A Brainrot online with zero downloads. Build your base, steal rare Brainrots, and enjoy the chaotic Roblox-style heist gameplay.",
+  alternates: { canonical: "/" },
+  openGraph: {
+    title: "Steal Brainrot | Play Steal A Brainrot Online",
+    description:
+      "Dive into the chaotic Roblox-inspired world of Steal A Brainrot. Collect, steal, and upgrade meme characters to boost your income.",
+    url: "https://stealabrainrot.quest/",
+    type: "website"
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Steal Brainrot | Play Steal A Brainrot Online",
+    description:
+      "Collect and steal meme Brainrots to grow your base. Play Steal A Brainrot instantly in your browser.",
+    site: "@stealabrainrot"
+  }
 };
 
-export default function RootLayout({
-  children
-}: {
-  children: ReactNode;
-}) {
-  const headHtml = fs.readFileSync(
-    path.join(process.cwd(), "data", "home-head.html"),
-    "utf8"
-  );
-  
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head dangerouslySetInnerHTML={{ __html: headHtml }} />
-      <body>{children}</body>
+      <body className={`${nunito.variable} bg-night text-white`}>{children}</body>
     </html>
   );
 }
