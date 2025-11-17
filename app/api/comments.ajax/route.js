@@ -3,6 +3,18 @@ import { supabaseAdmin } from '@/lib/supabase-admin'
 
 export async function GET(request) {
   try {
+    if (!supabaseAdmin) {
+      return NextResponse.json(
+        {
+          success: false,
+          comments: [],
+          pagination: { page: 1, totalPages: 1 },
+          error: 'Supabase is not configured. Set the required environment variables to enable comments.'
+        },
+        { status: 503 }
+      )
+    }
+
     const { searchParams } = new URL(request.url)
     const page = parseInt(searchParams.get('page')) || 1
     const limit = parseInt(searchParams.get('limit')) || 5

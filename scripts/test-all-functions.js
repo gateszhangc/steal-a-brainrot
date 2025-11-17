@@ -4,6 +4,11 @@ dotenv.config({ path: '.env.local' });
 
 import { supabaseAdmin } from '../lib/supabase-admin.js';
 
+if (!supabaseAdmin) {
+  console.error('Supabase is not configured. Set NEXT_PUBLIC_SUPABASE_URL and SUPABASE keys before running this script.');
+  process.exit(1);
+}
+
 async function testAllFunctions() {
   console.log('🧪 开始完整功能测试...\n');
 

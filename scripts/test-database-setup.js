@@ -4,6 +4,11 @@ dotenv.config({ path: '.env.local' });
 
 import { supabaseAdmin } from '../lib/supabase-admin.js';
 
+if (!supabaseAdmin) {
+  console.error('Supabase is not configured. Set NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY before running this script.');
+  process.exit(1);
+}
+
 async function testDatabaseSetup() {
   console.log('🔍 测试 Supabase 数据库设置...\n');
 

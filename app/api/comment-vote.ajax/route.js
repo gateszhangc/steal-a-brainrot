@@ -3,6 +3,13 @@ import { supabaseAdmin } from '@/lib/supabase-admin'
 
 export async function POST(request) {
   try {
+    if (!supabaseAdmin) {
+      return NextResponse.json(
+        { success: false, error: 'Supabase is not configured. Set the required environment variables to enable comments.' },
+        { status: 503 }
+      )
+    }
+
     const body = await request.json()
     const { comment_id, vote_type } = body
 
