@@ -27,6 +27,7 @@ export interface RecommendedGame {
   tagline: string;
   image?: string;
   comingSoon?: boolean;
+  useComingSoonPage?: boolean;
 }
 
 export interface TocItem {

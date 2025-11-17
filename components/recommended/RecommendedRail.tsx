@@ -11,8 +11,9 @@ export function RecommendedRail({ games }: RecommendedRailProps) {
       <h3 className="mb-6 text-xl font-semibold text-accent">🎮 Recommended Games</h3>
       <div className="grid gap-4 grid-cols-2 sm:grid-cols-3 lg:grid-cols-6">
         {games.map((game) => {
-          const isComingSoon = game.comingSoon !== false;
-          const href = isComingSoon
+          const useComingSoonPage = game.useComingSoonPage !== false;
+          const showComingSoonBadge = game.comingSoon === true;
+          const href = useComingSoonPage
             ? `/coming-soon?title=${encodeURIComponent(game.name)}&tagline=${encodeURIComponent(game.tagline)}${
                 game.image ? `&image=${encodeURIComponent(game.image)}` : ""
               }`
@@ -21,7 +22,7 @@ export function RecommendedRail({ games }: RecommendedRailProps) {
             <Link
               key={game.id}
               href={href}
-              prefetch={!isComingSoon}
+              prefetch={!useComingSoonPage}
               className="group relative flex flex-col items-center overflow-hidden rounded-2xl border border-white/5 bg-surface/70 p-3 text-center text-white transition hover:border-accent hover:shadow-glow"
             >
             <div className="h-24 w-full overflow-hidden rounded-xl bg-night">
@@ -36,7 +37,7 @@ export function RecommendedRail({ games }: RecommendedRailProps) {
               <p className="text-sm font-semibold leading-tight">{game.name}</p>
               <p className="text-xs text-white/60">{game.tagline}</p>
             </div>
-            {isComingSoon && (
+            {showComingSoonBadge && (
               <span className="absolute left-3 top-3 rounded-full bg-accent px-3 py-1 text-[10px] font-black uppercase tracking-widest text-black">
                 Coming Soon
               </span>
