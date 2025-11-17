@@ -60,7 +60,7 @@ export function GamePlayer({ hero, scrollTargetId }: GamePlayerProps) {
                 </div>
               )}
               <p className="text-sm uppercase tracking-[0.4em] text-white/70">Roblox Experience</p>
-              <h2 className="mt-3 text-3xl font-black text-white">{hero.title ?? "Steal Brainrot"}</h2>
+              <h1 className="mt-3 text-3xl font-black text-white">{hero.title ?? "Steal Brainrot"}</h1>
               <p className="mt-2 text-white/70">
                 Assemble your crew, steal the rarest Brainrots, and grow your meme empire faster than anyone else.
               </p>
