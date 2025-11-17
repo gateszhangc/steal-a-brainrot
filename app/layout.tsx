@@ -43,7 +43,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <Script
           id="ga-gtag"
           strategy="afterInteractive"
-          src="https://www.googletagmanager.com/gtag/js?id=G-CP1SM9BK8E"
+          src="https://www.googletagmanager.com/gtag/js?id=G-MRNDD9L9FS"
         />
         <Script
           id="ga-gtag-config"
@@ -52,7 +52,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             __html: `window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
-              gtag('config', 'G-CP1SM9BK8E');`
+              gtag('config', 'G-MRNDD9L9FS');`
           }}
         />
       </head>
