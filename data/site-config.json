@@ -2,10 +2,7 @@
   "brand": "STEAL BRAINROT",
   "domain": "https://stealabrainrot.quest",
   "searchPlaceholder": "Search games",
-  "navLinks": [
-    {"label": "Steal Brainrot Online", "href": "/steal-brainrot-online"},
-    {"label": "67 Clicker", "href": "/67-clicker"}
-  ],
+  "navLinks": [],
   "footerLinks": [
     {"label": "About Us", "href": "/about-us"},
     {"label": "Privacy Policy", "href": "/privacy-policy"},
